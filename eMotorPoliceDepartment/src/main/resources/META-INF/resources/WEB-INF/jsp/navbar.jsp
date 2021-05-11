@@ -34,8 +34,8 @@
             </div>
             <div class="w3-bar-block" >
                 <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" style="text-decoration: none" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-                <a href="admin_overview.jsp" class="w3-bar-item w3-button w3-padding mynavitem ${param.police}"  style="text-decoration: none" id="item"><i class="fa fa-tachometer fa-fw"></i>    Police</a>
-                <a href="admin_useraccount.jsp" class="w3-bar-item w3-button w3-padding mynavitem ${param.offence}"  style="text-decoration: none" ><i class="fa fa-user-circle-o fa-fw"></i>    Offence</a>
+                <a href="/department/police/maintain" class="w3-bar-item w3-button w3-padding mynavitem ${param.police}"  style="text-decoration: none" id="item"><i class="fa fa-tachometer fa-fw"></i>    Police</a>
+                <a href="/department/penalty/maintain/en" class="w3-bar-item w3-button w3-padding mynavitem ${param.offence}"  style="text-decoration: none" ><i class="fa fa-user-circle-o fa-fw"></i>    Offence</a>
                 <a href="#" data-toggle="modal" data-target="#changePasswordModel" class="w3-bar-item w3-button w3-padding mynavitem" onclick="changeColor()" style="text-decoration: none" ><i class="fa fa-cog fa-fw"></i>  Change Password</a>
                 <a href="../LogoutServlet" class="w3-bar-item w3-button w3-padding" style="text-decoration: none" ><i class="fa fa-power-off fa-fw"></i>    Logout</a>
             </div>

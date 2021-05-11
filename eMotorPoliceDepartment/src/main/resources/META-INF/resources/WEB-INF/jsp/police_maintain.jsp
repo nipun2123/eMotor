@@ -23,10 +23,10 @@
 </head>
 <body>
      
-      <jsp:include page="/WEB-INF/jsp/police_department/navbar.jsp">
+      <jsp:include page="/WEB-INF/jsp/navbar.jsp">
             <jsp:param name="police" value="w3-blue" />
         </jsp:include>
-     <jsp:include page="/WEB-INF/jsp/police_department/toolbar.jsp"/>   
+     <jsp:include page="/WEB-INF/jsp/toolbar.jsp"/>   
 
 
         <div  style="margin-left:300px;margin-top:43px;">
@@ -240,7 +240,7 @@
                         <form:form action="/department/police/sendpassword" method="GET" modelAttribute = "policeOfficer">
 
                        
-                            <form:label >Are You sure to send password againt?</form:label>
+                            <form:label path="nic" >Are You sure to send password againt?</form:label>
                             <br/>
                              <form:input path="nic" id="resendNic" type="text" style="display: none" />
                              

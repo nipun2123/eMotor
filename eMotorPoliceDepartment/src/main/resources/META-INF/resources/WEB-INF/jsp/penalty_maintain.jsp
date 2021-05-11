@@ -22,10 +22,10 @@
 <title>Penalty maintain</title>
 </head>
 <body>
-<jsp:include page="/WEB-INF/jsp/police_department/navbar.jsp">
+<jsp:include page="/WEB-INF/jsp/navbar.jsp">
             <jsp:param name="offence" value="w3-blue" />
         </jsp:include>
-     <jsp:include page="/WEB-INF/jsp/police_department/toolbar.jsp"/>   
+     <jsp:include page="/WEB-INF/jsp/toolbar.jsp"/>   
 
 
         <div  style="margin-left:300px;margin-top:43px;">
@@ -34,13 +34,13 @@
                             
         <div class="btn-group btn-group-toggle float-right m-2 " data-toggle="buttons" >
   							<label class="btn btn-secondary active">
-    						<input type="radio" name="options" id="spotEnglishConvert" autocomplete="off"  <c:out value = "${en}"/> onclick="window.location=window.location.href.match(/^.*\//)+'en' "> English
+    						<input type="radio" name="langOption"  id="spotEnglishConvert" value="english" autocomplete="off"  <c:out value = "${en}"/> onclick="window.location=window.location.href.match(/^.*\//)+'en' "> English
  							 </label>
   						<label class="btn btn-secondary">
-   							 <input type="radio" name="options" id="spotSinhalaConvert" autocomplete="off" <c:out value = "${sn}"/> onclick="window.location=window.location.href.match(/^.*\//)+'sn' "> Sinhala
+   							 <input type="radio" name="langOption" id="spotSinhalaConvert" value="sinhala" autocomplete="off" <c:out value = "${sn}"/> onclick="window.location=window.location.href.match(/^.*\//)+'sn' "> Sinhala
  								 </label>
   						<label class="btn btn-secondary">
-   							 <input type="radio" name="options" id="spotTamilConvert" autocomplete="off" <c:out value = "${tm}"/> onclick="window.location=window.location.href.match(/^.*\//)+'tm' "> Tamil
+   							 <input type="radio" name="langOption" id="spotTamilConvert" value="tamil" autocomplete="off" <c:out value = "${tm}"/> onclick="window.location=window.location.href.match(/^.*\//)+'tm' "> Tamil
   							</label>
 						</div>
 						
@@ -89,7 +89,7 @@
                                         </tr>
                                     </thead>
 
-                                    <tbody id="spotTbody">
+                                    <tbody>
                                            <c:forEach items="${penalties}" var="thePenalty">
                                      
                                      		<c:if test="${thePenalty.status == true && thePenalty.type == 'spot'}">
@@ -124,7 +124,7 @@
                                 Update offence
                             </button>
  						
-                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#courtOffenceModel">
+                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteOffenceModel">
                                 Delete offence
                             </button>
                             
@@ -132,15 +132,21 @@
                                 <table id="courtOffenceTable" class="table table-striped table-bordered container table-hover " style="width:100%;">
                                     <thead class="thead-light">
                                         <tr>
+                                        	<th>Id</th>
                                         	<th>Offence</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                            <tr>
-                                            	<td>Drive under influence of alcohol</td>
-
-                                            </tr>
+                                        <c:forEach items="${penalties}" var="thePenalty">
+                                     
+                                     		<c:if test="${thePenalty.status == true && thePenalty.type == 'court'}">
+	                                     			<tr>
+	                                     	 			<td> ${thePenalty.idPenalty} </td>
+	      											    <td> ${thePenalty.penaltyCommon} </td>
+	      										     </tr> 
+	      									 </c:if>
+   									 </c:forEach>
                                     </tbody>   
                                 </table>
                             </div>
@@ -166,7 +172,7 @@
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#warnOffenceModel">
                                 Update offence
                             </button>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#warnOffenceModel">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteOffenceModel">
                                 Delete offence
                             </button>
 						
@@ -176,15 +182,21 @@
                                 <table id="warnOffenceTable" class="table table-striped table-bordered container table-hover " style="width:100%;">
                                     <thead class="thead-light">
                                         <tr>
+                                        	<th>Id</th>
                                         	<th>Offence</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                            <tr>
-                                            	<td>No break</td>
-
-                                            </tr>
+                                   	<c:forEach items="${penalties}" var="thePenalty">
+                                     
+                                     		<c:if test="${thePenalty.status == true && thePenalty.type == 'warn'}">
+	                                     			<tr>
+	                                     	 			<td> ${thePenalty.idPenalty} </td>
+	      											    <td> ${thePenalty.penaltyCommon} </td>
+	      										     </tr> 
+	      									 </c:if>
+   									 </c:forEach>
                                     </tbody>   
                                 </table>
                             </div>
@@ -205,7 +217,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <form:form action="/department/penalty/spot/save" method="POST" modelAttribute = "penalty">
+                            <form:form action="/department/penalty/spot/save" method="POST" modelAttribute = "penalty" >
 								
                                 	
 
@@ -252,12 +264,12 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
 
-                        <form:form action="/department/penalty/delete" method="GET" modelAttribute = "penalty">
+                        <form:form action="/department/penalty/delete" method="GET" modelAttribute = "penalty" >
 
                        
                             <label >Are You sure to delete this offence?</label>
                             <br/>
-                             <form:input path="idPenalty" id="idSpotPenaltyDelete" type="text" style="display: none" />
+                             <form:input path="idPenalty" id="idPenaltyDelete" type="text"  style="display: none"/>
                              
                             <div class="d-flex align-items-center justify-content-center">
                                 <button type="submit" class="btn btn-primary" >Yes</button> 
@@ -280,32 +292,30 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <form action="#"  method="POST">
-							  <div class="form-group">
-                                    <label for="courtOffenceEnglish">Offence in English</label>
-                                    <input type="text" class="form-control" id="courtOffenceEnglish" required name="courtOffenceEnglish">
+                             <form:form action="/department/penalty/court/save" method="POST" modelAttribute = "penalty">
+								
+                                	
+
+                                <div class="form-group">
+                                    <form:label path="penaltyEnglish">Offence in English</form:label>
+                                    <form:input path="penaltyEnglish" type="text" class="form-control" id="courtPenaltyEnglish"/>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="courtOffenceSinhala">Offence in Sinhala</label>
-                                    <input type="text" class="form-control" id="courtOffenceSinhala" required name="courtOffenceSinhala">
+                                    <form:label path="penaltySinhala">Offence in Sinhala</form:label>
+                                    <form:input path="penaltySinhala" type="text" class="form-control" id="courtPenaltySinhala"/>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="courtOffenceTamil">Offence in Tamil</label>
-                                    <input type="text" class="form-control" id="courtOffenceTamil" required name="courtOffenceTamil">
+                                    <form:label path="penaltyTamil">Offence in Tamil</form:label>
+                                    <form:input path="penaltyTamil" type="text" class="form-control" id="courtPenaltyTamil" />
                                 </div>
 
-                               
-                                <div class="form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type="radio" id="deactive" class="form-check-input" value="deactive" name="status">Deactive
-                                    </label>
-                                </div>
+                                   <form:input path="idPenalty" id="idCourtPenalty" type="text"  style="display: none"/>
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
 
-                            </form>
+                            </form:form>
 
                         </div>
                     </div>
@@ -322,32 +332,30 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <form action="#"  method="POST">
-							<div class="form-group">
-                                    <label for="warnOffenceEnglish">Offence in English</label>
-                                    <input type="text" class="form-control" id="warnOffenceEnglish" required name="warnOffenceEnglish">
+                            <form:form action="/department/penalty/warn/save" method="POST" modelAttribute = "penalty">
+								
+                                	
+
+                                <div class="form-group">
+                                    <form:label path="penaltyEnglish">Offence in English</form:label>
+                                    <form:input path="penaltyEnglish" type="text" class="form-control" id="warnPenaltyEnglish"/>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="warnOffenceSinhala">Offence in Sinhala</label>
-                                    <input type="text" class="form-control" id="warnOffenceSinhala" required name="warnOffenceSinhala">
+                                    <form:label path="penaltySinhala">Offence in Sinhala</form:label>
+                                    <form:input path="penaltySinhala" type="text" class="form-control" id="warnPenaltySinhala"/>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="warnOffenceTamil">Offence in Tamil</label>
-                                    <input type="text" class="form-control" id="warnOffenceTamil" required name="warnOffenceTamil">
+                                    <form:label path="penaltyTamil">Offence in Tamil</form:label>
+                                    <form:input path="penaltyTamil" type="text" class="form-control" id="warnPenaltyTamil" />
                                 </div>
 
-                               
-                                <div class="form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type="radio" id="deactive" class="form-check-input" value="deactive" name="status">Deactive
-                                    </label>
-                                </div>
+                                   <form:input path="idPenalty" id="idWarnPenalty" type="text"  style="display: none"/>
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
 
-                            </form>
+                            </form:form>
 
                         </div>
                     </div>
@@ -365,20 +373,22 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             
-                            <form action="#"  method="POST">
+                            <form:form action="/department/penalty/settings/save"  method="POST" modelAttribute = "penaltySettings">
 							 <div class="form-group">
-                                    <label for="daysDouble">Double days count</label>
-                                    <input type="number" class="form-control" id="daysDouble" required name="daysDouble">
+                                    <form:label path="doubleDateCount">Double dates count</form:label>
+                                    <form:input path="doubleDateCount" type="number" class="form-control" value="${savedPenaltySettings['doubleDateCount']}" />
                                 </div>
 
                                
                              <div class="form-group">
-                                    <label for="daysCourt">Court days count</label>
-                                    <input type="number" class="form-control" id="daysCourt" required name="daysCourt">
+                                    <form:label path="courtDateCount">Court dates count</form:label>
+                                    <form:input path="courtDateCount" type="number" class="form-control" value="${savedPenaltySettings['courtDateCount']}" />
                                 </div>
                                 
+                                 <form:input path="idPenaltyDateSettings" type="number" value="${savedPenaltySettings['idPenaltyDateSettings']}"  style="display: none" />
+                                 
                                 <button type="submit" class="btn btn-primary">Save</button>
-                            </form>
+                            </form:form>
 
                         </div>
                     </div>
@@ -425,7 +435,7 @@
 				
                 
 		        $("#idSpotPenalty").val(selectRow[0]);
-                $("#idSpotPenaltyDelete").val(selectRow[0]);
+                $("#idPenaltyDelete").val(selectRow[0]);
                 $("#amount").val(selectRow[2]);
               	
 		    });
@@ -437,7 +447,7 @@
               $("#spotPenaltySinhala").val("");
               $("#spotPenaltyTamil").val("");
               $("#idSpotPenalty").val("");
-              $("#idSpotPenaltyDelete").val("");
+              $("#idPenaltyDelete").val("");
               $("#amount").val("");
           }
 		  
@@ -448,10 +458,37 @@
 		        "paging": false,
 		        select: true
 		    });
-		    $('#policeTable tbody').on('click', 'tr', function () {
+		    $('#courtOffenceTable tbody').on('click', 'tr', function () {
 		        var selectRow = table.rows(this).data()[0];
+		        
+		        clearFieldsCourt();
+		        
+		        
+		        
+				var u = window.location.href.match(/^.*\//)+'?id='+selectRow[0];
+                $.get( u, function( data ) {
+                	$("#courtPenaltyEnglish").val(data.penaltyEnglish);
+                	$("#courtPenaltySinhala").val(data.penaltySinhala);
+                	$("#courtPenaltyTamil").val(data.penaltyTamil);
+              	}, "json" );
+				
+				
+				
+                
+                $("#idCourtPenalty").val(selectRow[0]);
+                $("#idPenaltyDelete").val(selectRow[0]);
+                
 		    });
 		});
+		
+		
+		  function clearFieldsCourt() {
+              $("#courtPenaltyEnglish").val("");
+              $("#courtPenaltySinhala").val("");
+              $("#courtPenaltyTamil").val("");
+              $("#idCourtPenalty").val("");
+              $("#idPenaltyDelete").val("");
+          }
 		
 		
 		$(document).ready(function () {
@@ -460,73 +497,38 @@
 		        "paging": false,
 		        select: true
 		    });
-		    $('#policeTable tbody').on('click', 'tr', function () {
+		    $('#warnOffenceTable tbody').on('click', 'tr', function () {
 		        var selectRow = table.rows(this).data()[0];
+		        
+		        
+		        clearFieldsWarn();
+		        
+		        
+		        
+				var u = window.location.href.match(/^.*\//)+'?id='+selectRow[0];
+                $.get( u, function( data ) {
+                	$("#warnPenaltyEnglish").val(data.penaltyEnglish);
+                	$("#warnPenaltySinhala").val(data.penaltySinhala);
+                	$("#warnPenaltyTamil").val(data.penaltyTamil);
+              	}, "json" );
+				
+				
+				
+                
+                $("#idWarnPenalty").val(selectRow[0]);
+                $("#idPenaltyDelete").val(selectRow[0]);
 		    });
 		});
 		
-		$('#spotEnglishConvert').click(function() {
-		
-			
-			var content = ' <c:forEach items='${penalties}' var='thePenalty'>';
-			content += '<c:if test='${thePenalty.status == true && thePenalty.type == "spot"}'>';
-			content += '<tr>';
-			content += '<td> ${thePenalty.idPenalty} </td>';
-			content += '<td> ${thePenalty.penaltyEnglish} </td>';
-			content += '<td> ${thePenalty.fineAmount.amount} </td>';
-			content += '</tr>';
-			content += '</c:if>';
-			content += ' </c:forEach>';
-         			
-         	 			
-						    
 
-			$("#spotTbody").empty().append(content);
-			
-		  
-		  });
-		
-	$('#spotSinhalaConvert').click(function() {
-		
-			
-			var content = ' <c:forEach items='${penalties}' var='thePenalty'>';
-			content += '<c:if test='${thePenalty.status == true && thePenalty.type == "spot"}'>';
-			content += '<tr>';
-			content += '<td> ${thePenalty.idPenalty} </td>';
-			content += '<td> ${thePenalty.penaltySinhala} </td>';
-			content += '<td> ${thePenalty.fineAmount.amount} </td>';
-			content += '</tr>';
-			content += '</c:if>';
-			content += ' </c:forEach>';
-         			
-         	 			
-						    
-
-			$("#spotTbody").empty().append(content);
-			
-		  
-		  });
+		  function clearFieldsWarn() {
+              $("#warnPenaltyEnglish").val("");
+              $("#warnPenaltySinhala").val("");
+              $("#warnPenaltyTamil").val("");
+              $("#idWarnPenalty").val("");
+              $("#idPenaltyDelete").val("");
+          }
 	
-	$('#spotTamilConvert').click(function() {
-		
-		
-		var content = ' <c:forEach items='${penalties}' var='thePenalty'>';
-		content += '<c:if test='${thePenalty.status == true && thePenalty.type == "spot"}'>';
-		content += '<tr>';
-		content += '<td> ${thePenalty.idPenalty} </td>';
-		content += '<td> ${thePenalty.penaltyTamil} </td>';
-		content += '<td> ${thePenalty.fineAmount.amount} </td>';
-		content += '</tr>';
-		content += '</c:if>';
-		content += ' </c:forEach>';
-     			
-     	 			
-					    
-
-		$("#spotTbody").empty().append(content);
-		
-	  
-	  });
 		
 		$('#spotOffenceModel').on('shown.bs.modal', function () {
 		    $('#myInput').trigger('focus');
