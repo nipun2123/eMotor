@@ -32,13 +32,12 @@ public class LoginController {
 		 DepartmentAccount checkDepartmentAccount = departmentAccountService.checkUsernamePassword(theDepartmentAccount);
 		 
 		 if(checkDepartmentAccount == null) {
-			 System.out.println("Wrong username or password");
 			 
 			 return "redirect:/department/login";
 		 }else {
-		 System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+checkDepartmentAccount.getUsername());
-		 System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+checkDepartmentAccount.getPassword());
+			 
 		 return "redirect:/department/police/maintain";
+		 
 		 }
 		 
 		

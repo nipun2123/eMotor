@@ -7,5 +7,5 @@ import com.eMotor.Police.Department.eMotorPoliceDepartment.entity.DepartmentAcco
 public interface DepartmentAccountRepository extends JpaRepository<DepartmentAccount, Integer> {
 	
 	 @Query("SELECT da FROM DepartmentAccount da where da.username = :username and da.password = :password") 
-	 DepartmentAccount chekcUsernamePassword(String username,String password);
+	 public DepartmentAccount chekcUsernamePassword(String username,String password);
 }
