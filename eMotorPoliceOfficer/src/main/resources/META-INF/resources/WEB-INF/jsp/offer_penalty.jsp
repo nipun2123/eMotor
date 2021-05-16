@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,43 +27,35 @@
 <body>
 
 
-	<jsp:include page="/WEB-INF/jsp/traffic/navbar.jsp">
+	<jsp:include page="/WEB-INF/jsp/navbar.jsp">
 		<jsp:param name="license" value="w3-blue" />
 	</jsp:include>
-	<jsp:include page="/WEB-INF/jsp/traffic/toolbar.jsp" />
+	<jsp:include page="/WEB-INF/jsp/toolbar.jsp" />
 
 
 	<div style="margin-left: 300px; margin-top: 43px;">
 
 	<div  class="p-4" >
 	<div class="row">
-		<button type="button" class="btn btn-outline-secondary" > &#60;&#60;  &nbsp;Back </button>
+		<button type="button" class="btn btn-outline-secondary" onclick="goBack()" > &#60;&#60;  &nbsp;Back </button>
 	</div>	
 		
 		<br/>
+		<form:form action="/view/license/search/offer/penalty" method="POST" modelAttribute = "offerPenaltyBean" >
 	<div class="row">
 		<div class="col-sm-8">
-				<div class="row">
-					<div class="col-sm-3">
-					 <label style="font-size: 20px;">Penalty number:</label>
-					</div>
-					<div class="col-sm-9">
-					  <label style="font-size: 18px;">057236</label>
-					</div>
-				</div>
-				
-			<hr  style="height:1px;border-width:0;color:gray;background-color:gray" />
+		
 					
 			<div class="row">
 					<div class="col-sm-3">
-					 <label style="font-size: 20px;">Offence type:</label>
+					 <form:label path="type" style="font-size: 20px;">Offence type:</form:label>
 					</div>
 					<div class="col-sm-5">
-					   <select class="form-control browser-default custom-select"  id="type" name="type">
+					   <form:select path="type" class="form-control browser-default custom-select"  id="type" >
                                             <option value="spot">Spot Fine</option>
                                             <option value="court">Court</option>
                                             <option value="warn">Warn</option>
-                       </select>
+                       </form:select>
 					</div>
 				</div>
 				
@@ -71,14 +64,12 @@
 				
 			<div class="row">
 					<div class="col-sm-3">
-					 <label style="font-size: 20px;">Offence:</label>
+					 <form:label path="penaltyId" style="font-size: 20px;">Offence:</form:label>
 					</div>
 					<div class="col-sm-9">
-					    <select class="form-control browser-default custom-select"  id="type" name="type">
-                                            <option value="">dsfcsed efes fsdfs rfg dw dss dvdvd wdw cscse evd</option>
-                                            <option value="">dvdsvsd bth tht kkok dnfd kvdmvk dvd</option>
-                                            <option value="">kfdbk dfvdif ehudwye udhsvusd jnvdsjnvkds dnsvjsdkbdo  dsjvsdjowifoi sdvjsdvuhsd </option>
-                       </select> 
+					    <form:select path="penaltyId" class="form-control browser-default custom-select"  id="offenceSelect" >
+                                        
+                       </form:select> 
 					</div>
 				</div>
 
@@ -86,10 +77,10 @@
 					
 			<div class="row">
 					<div class="col-sm-3">
-					  <label style="font-size: 20px;">Vehicle number:</label>
+					  <form:label path="vehicleNo" style="font-size: 20px;">Vehicle number:</form:label>
 					</div>
 					<div class="col-sm-5">
-					    <input type="text" class="form-control" id="vehicleno" required name="vehicleno" >
+					    <form:input path="vehicleNo" type="text" class="form-control" />
 					</div>
 				</div>
 				
@@ -99,10 +90,10 @@
 					
 				<div class="row">
 					<div class="col-sm-3">
-					  	 <label style="font-size: 20px;">Place of Offence:</label>
+					  	 <form:label path="place" style="font-size: 20px;">Place of Offence:</form:label>
 					</div>
 					<div class="col-sm-5">
-					    <input type="text" class="form-control" id="place" required name="place" >
+					    <form:input path="place" type="text" class="form-control" />
 					</div>
 				</div>
 				
@@ -111,10 +102,10 @@
 					
 					<div class="row">
 					<div class="col-sm-3">
-					  	<label style="font-size: 20px;">Court:</label>
+					  	<form:label path="court" style="font-size: 20px;">Court:</form:label>
 					</div>
 					<div class="col-sm-5">
-					   <input type="text" class="form-control" id="court" required name="court" >
+					   <form:input path="court" type="text" class="form-control" />
 					</div>
 				</div>
 				
@@ -122,27 +113,28 @@
 					
 				<div class="row">
 					<div class="col-sm-3">
-					  	<label style="font-size: 20px;">Court date:</label>
+					  	<form:label path="courtDate" style="font-size: 20px;">Court date:</form:label>
 					</div>
 					<div class="col-sm-5">
-					  <input type="date" class="form-control" id="courtdate" required name="courtdate" >
+					  <form:input path="courtDate" type="date" class="form-control" />
 					</div>
 				</div>
 				
 				<br/>
 			<br/>
 			
-			<button type="button" class="btn btn-primary float-right mr-5" >  &nbsp;Offer Penalty </button>
-			
+			<button type="submit" class="btn btn-primary float-right mr-5" >  &nbsp;Offer Penalty </button>
+		
+			 
 			</div>
 		<div class="col-sm-4">
 		
 				<div class="row">
 				<div class="col-sm-4">
-					 <label style="font-size: 20px;">Licence number:</label>
+					 <form:label path="licenseNo" style="font-size: 20px;">License number:</form:label>
 				</div>
 				<div class="col-sm-8">
-					 <label style="font-size: 18px;">B3838805</label>
+					 <form:input path="licenseNo"  style="font-size: 18px;" value= "${param.licenseNo}"/>
 				</div>
 			</div>
 			
@@ -150,54 +142,23 @@
 			
 			<div class="row">
 				<div class="col-sm-4">
-					 <label style="font-size: 20px;">NIC number:</label>
+					 <form:label path="nic"  style="font-size: 20px;">NIC number:</form:label>
 				</div>
 				<div class="col-sm-8">
-					 <label style="font-size: 18px;">20011202938</label>
+					 <form:input path="nic"  style="font-size: 18px;" value="${param.nic}"/>
 				</div>
 			</div>
 			
-			<hr  style="height:1px;border-width:0;color:gray;background-color:gray" />
 			
-			
-			<div class="row">
-				<div class="col-sm-4">
-					 <label style="font-size: 20px;">Full name:</label>
-				</div>
-				<div class="col-sm-8">
-					<label style="font-size: 18px;">Amarakoon Appuhamillage Nipun Jayasanka Amarakoon</label>
-				</div>
-			</div>
-			
-			<hr  style="height:1px;border-width:0;color:gray;background-color:gray" />
-			
-			<div class="row">
-				<div class="col-sm-4">
-					 <label style="font-size: 20px;">Address:</label>
-				</div>
-				<div class="col-sm-8">
-					<label style="font-size: 18px;">534/1/6, Prathiba mawatha, Henihaththa Biyagama</label>
-				</div>
-			</div>
-			
-			<hr  style="height:1px;border-width:0;color:gray;background-color:gray" />
-			
-			<div class="row">
-			<div class="col-sm-4">
-				  <label style="font-size: 20px;">License Status:</label>
-			</div>
-			<div class="col-sm-8">
-				<label style="font-size: 18px;">Suspended to 6 months</label>
-			</div>
 		</div>
 			
 			
 		</div>
+		
+			 </form:form>
 	</div>
 	
 	
-</div>
-
 </div>
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -211,6 +172,61 @@
         <script type="text/javascript" src="https://editor.datatables.net/extensions/Editor/js/editor.bootstrap4.min.js"></script>
         
 <script>
+
+function goBack() {
+	  window.history.back();
+	}
+
+var endUrl = $(location).attr("href").split('/').pop();
+
+$("#type").change(function(){
+	  changeType($("#type").val());
+	});
+
+
+$("#type").ready(function() {
+	
+    changeType($("#type").val());
+});
+
+function changeType(selectedType){
+	$('#offenceSelect').empty();
+    
+	var u = window.location.origin+'/license/penalty/search?type='+selectedType;
+    $.get( u, function( data ) {
+    	
+		$.each(data, function (data, item) {
+			
+			if(endUrl.startsWith("en")){
+				 $('#offenceSelect').append($('<option>', { 
+					  
+					   value: item.idPenalty,
+				        text : item.penaltyEnglish 
+				        
+				    }));
+			}else if(endUrl.startsWith("sn")){
+				 $('#offenceSelect').append($('<option>', { 
+					  
+					   value: item.idPenalty,
+				        text : item.penaltySinhala 
+				        
+				    }));
+			}else if(endUrl.startsWith("tm")){
+				 $('#offenceSelect').append($('<option>', { 
+					  
+					   value: item.idPenalty,
+				        text : item.penaltyTamil 
+				        
+				    }));
+			}
+		   
+		});
+		
+		
+  	}, "json" );
+}
+
+
 $(document).ready(function () {
     var table = $('#penaltyTable').DataTable({
         lengthChange: false,

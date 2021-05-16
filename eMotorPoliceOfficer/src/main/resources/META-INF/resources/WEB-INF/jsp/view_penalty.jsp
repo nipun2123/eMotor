@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,10 +27,10 @@
 <body>
 
 
-	<jsp:include page="/WEB-INF/jsp/traffic/navbar.jsp">
+	<jsp:include page="/WEB-INF/jsp/navbar.jsp">
 		<jsp:param name="license" value="w3-blue" />
 	</jsp:include>
-	<jsp:include page="/WEB-INF/jsp/traffic/toolbar.jsp" />
+	<jsp:include page="/WEB-INF/jsp/toolbar.jsp" />
 
 
 	<div style="margin-left: 300px; margin-top: 43px;">
@@ -37,7 +38,7 @@
 	<div  class="p-4" >
 	
 		<div class="row">
-		<button type="button" class="btn btn-outline-secondary" > &#60;&#60;  &nbsp;Back </button>
+		<button type="button" class="btn btn-outline-secondary" onclick="goBack()" > &#60;&#60;  &nbsp;Back </button>
 	</div>	
 		
 		<br/>
@@ -46,10 +47,10 @@
 		<div class="col-sm-8">
 				<div class="row">
 					<div class="col-sm-3">
-					 <label style="font-size: 20px;">Penalty number:</label>
+					 <label style="font-size: 18px;">Penalty number:</label>
 					</div>
 					<div class="col-sm-9">
-					  <label style="font-size: 18px;">057236</label>
+					  <label style="font-size: 18px;">${driverPenalty.penaltyNo}</label>
 					</div>
 				</div>
 				
@@ -57,32 +58,23 @@
 				
 				<div class="row">
 					<div class="col-sm-3">
-					 <label style="font-size: 20px;">Status:</label>
+					 <label style="font-size: 18px;">Status:</label>
 					</div>
 					<div class="col-sm-9">
-					  <label style="font-size: 18px;">Expire</label>
+					  <label style="font-size: 18px;">${driverPenalty.status}</label>
 					</div>
 				</div>
 				
-				<hr  style="height:1px;border-width:0;color:gray;background-color:gray" />
 				
-				<div class="row">
-					<div class="col-sm-3">
-					 <label style="font-size: 20px;">Result:</label>
-					</div>
-					<div class="col-sm-9">
-					  <label style="font-size: 18px;">Issue 40000 Fine and 6 months suspends</label>
-					</div>
-				</div>
 				
 				<hr  style="height:1px;border-width:0;color:gray;background-color:gray" />
 				
 			<div class="row">
 					<div class="col-sm-3">
-					 <label style="font-size: 20px;">Offence:</label>
+					 <label style="font-size: 18px;">Offence:</label>
 					</div>
 					<div class="col-sm-9">
-					  <label style="font-size: 18px;">fdkv orgjro iewjfi kfvjfk vf eifjei kvsdnvksn ijdwfjw ndvjkd nvdv</label>
+					  <label style="font-size: 18px;">${driverPenalty.penalty.penaltyCommon}</label>
 					</div>
 				</div>
 				
@@ -90,10 +82,10 @@
 					
 			<div class="row">
 					<div class="col-sm-3">
-					 <label style="font-size: 20px;">Offence type:</label>
+					 <label style="font-size: 18px;">Offence type:</label>
 					</div>
 					<div class="col-sm-9">
-					   <label style="font-size: 18px;">Spot Fine</label>
+					   <label style="font-size: 18px;">${driverPenalty.penalty.type}</label>
 					</div>
 				</div>
 				
@@ -102,20 +94,32 @@
 					
 			<div class="row">
 					<div class="col-sm-3">
-					 <label style="font-size: 20px;">Penalty type:</label>
+					 <label style="font-size: 18px;">Penalty type:</label>
 					</div>
 					<div class="col-sm-9">
-					   <label style="font-size: 18px;">Court</label>
+					   <label style="font-size: 18px;">${driverPenalty.type}</label>
 					</div>
 				</div>
+				
+				<hr  style="height:1px;border-width:0;color:gray;background-color:gray" />
+				
+				<div class="row">
+					<div class="col-sm-3">
+					 <label style="font-size: 18px;">Penalty result:</label>
+					</div>
+					<div class="col-sm-9">
+					  <label style="font-size: 18px;">${driverPenalty.completedRecord.result}</label>
+					</div>
+				</div>
+				
 					<hr  style="height:1px;border-width:0;color:gray;background-color:gray" />
 					
 			<div class="row">
 					<div class="col-sm-3">
-					  <label style="font-size: 20px;">Vehicle number:</label>
+					  <label style="font-size: 18px;">Vehicle number:</label>
 					</div>
 					<div class="col-sm-9">
-					   <label style="font-size: 18px;">XS-3575</label>
+					   <label style="font-size: 18px;">${driverPenalty.vehicleNo}</label>
 					</div>
 				</div>
 				
@@ -123,32 +127,23 @@
 			
 			<div class="row">
 					<div class="col-sm-3">
-					  	  <label style="font-size: 20px;">Date of Offence:</label>
+					  	  <label style="font-size: 18px;">Date of Offence:</label>
 					</div>
 					<div class="col-sm-9">
-					   <label style="font-size: 18px;">21/04/2000</label>
+					   <label style="font-size: 18px;">${driverPenalty.formatedPenaltyFrom}</label>
 					</div>
 				</div>
 		
-			<hr  style="height:1px;border-width:0;color:gray;background-color:gray" />
 			
-			<div class="row">
-					<div class="col-sm-3">
-					  	 <label style="font-size: 20px;">Time of Offence:</label>
-					</div>
-					<div class="col-sm-9">
-					   <label style="font-size: 18px;">8:00am</label>
-					</div>
-				</div>
 				
 					<hr  style="height:1px;border-width:0;color:gray;background-color:gray" />
 					
 				<div class="row">
 					<div class="col-sm-3">
-					  	 <label style="font-size: 20px;">Place of Offence:</label>
+					  	 <label style="font-size: 18px;">Place of Offence:</label>
 					</div>
 					<div class="col-sm-9">
-					   <label style="font-size: 18px;">Kirilla</label>
+					   <label style="font-size: 18px;">${driverPenalty.place}</label>
 					</div>
 				</div>
 				
@@ -156,10 +151,10 @@
 				
 				<div class="row">
 					<div class="col-sm-3">
-					  	 <label style="font-size: 20px;">Valid from:</label>
+					  	 <label style="font-size: 18px;">Valid from:</label>
 					</div>
 					<div class="col-sm-9">
-					   <label style="font-size: 18px;">04/05/2026</label>
+					   <label style="font-size: 18px;">${driverPenalty.formatedPenaltyFrom}</label>
 					</div>
 				</div>
 				
@@ -167,10 +162,10 @@
 					
 				<div class="row">
 					<div class="col-sm-3">
-					  	 <label style="font-size: 20px;">Valid to:</label>
+					  	 <label style="font-size: 18px;">Valid to:</label>
 					</div>
 					<div class="col-sm-9">
-					   <label style="font-size: 18px;">09/05/2026</label>
+					   <label style="font-size: 18px;">${driverPenalty.penaltyTo}</label>
 					</div>
 				</div>
 				
@@ -178,10 +173,10 @@
 					
 					<div class="row">
 					<div class="col-sm-3">
-					  	<label style="font-size: 20px;">Court:</label>
+					  	<label style="font-size: 18px;">Court:</label>
 					</div>
 					<div class="col-sm-9">
-					   <label style="font-size: 18px;">Mahara</label>
+					   <label style="font-size: 18px;">${driverPenalty.court}</label>
 					</div>
 				</div>
 				
@@ -189,10 +184,10 @@
 					
 				<div class="row">
 					<div class="col-sm-3">
-					  	<label style="font-size: 20px;">Court date:</label>
+					  	<label style="font-size: 18px;">Court date:</label>
 					</div>
 					<div class="col-sm-9">
-					   <label style="font-size: 18px;">09/05/2026</label>
+					   <label style="font-size: 18px;">${driverPenalty.courtDate}</label>
 					</div>
 				</div>
 				
@@ -200,10 +195,10 @@
 				
 				<div class="row">
 					<div class="col-sm-3">
-					  	<label style="font-size: 20px;">Police station:</label>
+					  	<label style="font-size: 18px;">Police station:</label>
 					</div>
 					<div class="col-sm-9">
-					   <label style="font-size: 18px;">Biyagama</label>
+					   <label style="font-size: 18px;">${driverPenalty.useraccount.officer.station.policeStation}</label>
 					</div>
 				</div>
 				
@@ -211,10 +206,10 @@
 					
 				<div class="row">
 					<div class="col-sm-3">
-					  	<label style="font-size: 20px;">Detected officer no:</label>
+					  	<label style="font-size: 18px;">Detected officer no:</label>
 					</div>
 					<div class="col-sm-9">
-					    <label style="font-size: 18px;">B56464</label>
+					    <label style="font-size: 18px;">${driverPenalty.useraccount.officer.officerNo}</label>
 					</div>
 				</div>
 				
@@ -222,10 +217,10 @@
 					
 				<div class="row">
 					<div class="col-sm-3">
-					  	 <label style="font-size: 20px;">Detected officer name:</label>
+					  	 <label style="font-size: 18px;">Detected officer name:</label>
 					</div>
 					<div class="col-sm-9">
-					   <label style="font-size: 18px;">Jayasanka Amarakooon</label>
+					   <label style="font-size: 18px;">${driverPenalty.useraccount.officer.fName} ${driverPenalty.useraccount.officer.lName}</label>
 					</div>
 				</div>
 				
@@ -233,10 +228,10 @@
 				
 				<div class="row">
 					<div class="col-sm-3">
-					  	<label style="font-size: 20px;">Who end penalty no:</label>
+					  	<label style="font-size: 18px;">Who end penalty (Officer no):</label>
 					</div>
 					<div class="col-sm-9">
-					    <label style="font-size: 18px;">B56464</label>
+					    <label style="font-size: 18px;">${driverPenalty.completedRecord.useraccount.officer.officerNo}</label>
 					</div>
 				</div>
 				
@@ -244,10 +239,21 @@
 					
 				<div class="row">
 					<div class="col-sm-3">
-					  	 <label style="font-size: 20px;">Who end penalty name:</label>
+					  	 <label style="font-size: 18px;">Who end penalty (Offer name):</label>
 					</div>
 					<div class="col-sm-9">
-					   <label style="font-size: 18px;">Jayasanka Amarakooon</label>
+					   <label style="font-size: 18px;">${driverPenalty.completedRecord.useraccount.officer.fName} ${driverPenalty.completedRecord.useraccount.officer.lName}</label>
+					</div>
+				</div>
+				
+					<hr  style="height:1px;border-width:0;color:gray;background-color:gray" />
+					
+				<div class="row">
+					<div class="col-sm-3">
+					  	 <label style="font-size: 18px;">Penalty end date:</label>
+					</div>
+					<div class="col-sm-9">
+					   <label style="font-size: 18px;">${driverPenalty.completedRecord.completedDate} </label>
 					</div>
 				</div>
 				
@@ -256,10 +262,10 @@
 		
 				<div class="row">
 				<div class="col-sm-4">
-					 <label style="font-size: 20px;">Licence number:</label>
+					 <label style="font-size: 18px;">Licence number:</label>
 				</div>
 				<div class="col-sm-8">
-					 <label style="font-size: 18px;">B3838805</label>
+					 <label style="font-size: 18px;">${driverPenalty.driver.licenseNo}</label>
 				</div>
 			</div>
 			
@@ -267,46 +273,14 @@
 			
 			<div class="row">
 				<div class="col-sm-4">
-					 <label style="font-size: 20px;">NIC number:</label>
+					 <label style="font-size: 18px;">NIC number:</label>
 				</div>
 				<div class="col-sm-8">
-					 <label style="font-size: 18px;">20011202938</label>
+					 <label style="font-size: 18px;">${driverPenalty.driver.nic}</label>
 				</div>
 			</div>
 			
-			<hr  style="height:1px;border-width:0;color:gray;background-color:gray" />
 			
-			
-			<div class="row">
-				<div class="col-sm-4">
-					 <label style="font-size: 20px;">Full name:</label>
-				</div>
-				<div class="col-sm-8">
-					<label style="font-size: 18px;">Amarakoon Appuhamillage Nipun Jayasanka Amarakoon</label>
-				</div>
-			</div>
-			
-			<hr  style="height:1px;border-width:0;color:gray;background-color:gray" />
-			
-			<div class="row">
-				<div class="col-sm-4">
-					 <label style="font-size: 20px;">Address:</label>
-				</div>
-				<div class="col-sm-8">
-					<label style="font-size: 18px;">534/1/6, Prathiba mawatha, Henihaththa Biyagama</label>
-				</div>
-			</div>
-			
-			<hr  style="height:1px;border-width:0;color:gray;background-color:gray" />
-			
-			<div class="row">
-			<div class="col-sm-4">
-				  <label style="font-size: 20px;">License Status:</label>
-			</div>
-			<div class="col-sm-8">
-				<label style="font-size: 18px;">Suspended to 6 months</label>
-			</div>
-		</div>
 			
 			<br/>
 			<br/>
@@ -331,6 +305,11 @@
         <script type="text/javascript" src="https://editor.datatables.net/extensions/Editor/js/editor.bootstrap4.min.js"></script>
         
 <script>
+
+function goBack() {
+  window.history.back();
+}
+
 $(document).ready(function () {
     var table = $('#penaltyTable').DataTable({
         lengthChange: false,

@@ -91,10 +91,10 @@ input:checked + .slider:before {
 <body>
 
 
-	<jsp:include page="/WEB-INF/jsp/traffic/navbar.jsp">
+	<jsp:include page="/WEB-INF/jsp/navbar.jsp">
 		<jsp:param name="view_payments" value="w3-blue" />
 	</jsp:include>
-	<jsp:include page="/WEB-INF/jsp/traffic/toolbar.jsp" />
+	<jsp:include page="/WEB-INF/jsp/toolbar.jsp" />
 
 
 	<div style="margin-left: 300px; margin-top: 43px;">
