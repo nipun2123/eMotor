@@ -1,12 +1,17 @@
 package com.eMotor.Police.Officer.eMotorPoliceOfficer.beans;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
 
-public class OfferPenaltyBean {
+public class OfferPenaltyBean implements Serializable{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String licenseNo;
 	private String nic;
 	private LocalDateTime penaltyFrom;

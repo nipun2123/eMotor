@@ -74,7 +74,7 @@ public class ViewLicenseController {
 		
 		Map<String, Object> searchedLicense =  viewLicenseService.searchDrivingLicense(licenseNo, nic);
 		
-		theModel.addAttribute("searchedLicense", searchedLicense);
+		
 		
 		List<DriverPenalty> driverPenaltyList = (List<DriverPenalty>) searchedLicense.get("driverPenalties");
 		
@@ -84,6 +84,7 @@ public class ViewLicenseController {
 			 
 		 }
 		
+		 theModel.addAttribute("searchedLicense", searchedLicense);
 		
 		OfferPenaltyBean offerPenaltyBean = new OfferPenaltyBean();
 		
@@ -105,7 +106,7 @@ public class ViewLicenseController {
 		
 		Map<String, Object> searchedLicense =  viewLicenseService.searchDrivingLicense(licenseNo, nic);
 		
-		theModel.addAttribute("searchedLicense", searchedLicense);
+		
 		
 		List<DriverPenalty> driverPenaltyList = (List<DriverPenalty>) searchedLicense.get("driverPenalties");
 		
@@ -114,6 +115,8 @@ public class ViewLicenseController {
 			 driverPenalty.getPenalty().setPenaltyCommon( driverPenalty.getPenalty().getPenaltyTamil());
 			 
 		 }
+		 
+		 theModel.addAttribute("searchedLicense", searchedLicense);
 		
 		OfferPenaltyBean offerPenaltyBean = new OfferPenaltyBean();
 		
@@ -146,7 +149,8 @@ public class ViewLicenseController {
 		theDriverPenalty.getPenalty().setPenaltyCommon( theDriverPenalty.getPenalty().getPenaltyEnglish());
 		theModel.addAttribute("driverPenalty", theDriverPenalty);
 		
-		return "view_penalty";
+		
+		return "view_penalty_license";
 	}
 	
 	@GetMapping("/search/penalty/sn")
@@ -156,7 +160,7 @@ public class ViewLicenseController {
 		theDriverPenalty.getPenalty().setPenaltyCommon( theDriverPenalty.getPenalty().getPenaltySinhala());
 		theModel.addAttribute("driverPenalty", theDriverPenalty);
 		
-		return "view_penalty";
+		return "view_penalty_license";
 	}
 	
 	@GetMapping("/search/penalty/tm")
@@ -166,7 +170,8 @@ public class ViewLicenseController {
 		theDriverPenalty.getPenalty().setPenaltyCommon( theDriverPenalty.getPenalty().getPenaltyTamil());
 		theModel.addAttribute("driverPenalty", theDriverPenalty);
 		
-		return "view_penalty";
+		
+		return "view_penalty_license";
 	}
 	
 	

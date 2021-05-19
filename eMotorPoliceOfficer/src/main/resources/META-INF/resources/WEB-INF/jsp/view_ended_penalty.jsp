@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -92,7 +94,7 @@ input:checked + .slider:before {
 
 
 	<jsp:include page="/WEB-INF/jsp/navbar.jsp">
-		<jsp:param name="view_payments" value="w3-blue" />
+		<jsp:param name="view_ended_penalty" value="w3-blue" />
 	</jsp:include>
 	<jsp:include page="/WEB-INF/jsp/toolbar.jsp" />
 
@@ -109,88 +111,92 @@ input:checked + .slider:before {
 			<label class="form-label" for="form1">End date:</label> &nbsp;
 			                      
              <div class="form-check-inline m-2">
+                                    <label for="fineAmount">All</label>
+                                     &nbsp;
+            <label class="switch">
+  					<input type="checkbox" id="allCheck" <c:out value = "${all}"/> > <span class="slider round"></span>
+			</label>
+            </div>
+            
+            &nbsp;&nbsp;
+            
+            <div class="form-check-inline m-2">
                                     <label for="fineAmount">Today</label>
                                      &nbsp;
             <label class="switch">
-  					<input type="checkbox"> <span class="slider round"></span>
+  					<input type="checkbox" id="todayCheck" <c:out value = "${today}"/> > <span class="slider round"></span>
 			</label>
             </div>
             
-            &nbsp;&nbsp;
-            
-            <div class="form-check-inline m-2">
-                                    <label for="fineAmount">This week</label>
-                                     &nbsp;
-            <label class="switch">
-  					<input type="checkbox"> <span class="slider round"></span>
-			</label>
-            </div>
-            
-            &nbsp;&nbsp;
-            
-            <div class="form-check-inline m-2">
-                                    <label for="fineAmount">This month</label>
-                                     &nbsp;
-            <label class="switch">
-  					<input type="checkbox"> <span class="slider round"></span>
-			</label>
-            </div>
             
 			&nbsp;&nbsp;
-			
+			<form action="/view/endedpenalty/between/${ln}" method="GET">
+			<div class="form-check-inline">
 				<label class="form-label" for="form1">From</label> &nbsp; 
-				<input id="search-focus" type="date" id="form1" class="form-control" />
+				<input id="search-focus" name="from" type="date" id="fromDate" class="form-control" />
 			
 			&nbsp;&nbsp; 
 				<label class="form-label" for="form1">To</label> 
 				&nbsp; 
-				<input id="search-focus" type=date id="form1" class="form-control" />
+				<input id="search-focus" name="to" type=date id="toDate" class="form-control" />
 			
 			&nbsp; &nbsp;
-			<button type="button" class="btn btn-primary">
+			<button type="submit" class="btn btn-primary"  >
 				<i class="fas fa-search"></i>
 			</button>
+			</div>
+			</form>
+			</div>
 			</div> 
 			 </div> 
-      
-      	 <button type="button" class="btn btn-primary float-right m-2" >
-                                Tamil
-                            </button>
-                            <button type="button" class="btn btn-primary float-right m-2" >
-                                English
-                            </button>
-                             <button type="button" class="btn btn-primary float-right m-2" >
-                                Sinhala
-                            </button>                
+			 
+			 <c:set var="par1" value="${param}"/>
+			
+<c:set var="par2" value="${fn:replace(par1, '{','')}"/>
+<c:set var="par3" value="${fn:replace(par2, '}','')}"/>
+<c:set var="par4" value="${fn:replace(par3, ', ','&')}"/>
+
+
+      	     <div class="btn-group btn-group-toggle float-right m-2 " data-toggle="buttons" >
+  							<label class="btn btn-secondary active">
+    					<input type="radio" name="langOption" id="spotEnglishConvert" value="english" autocomplete="off" <c:out value = "${en}"/> onclick="window.location=window.location.href.match(/^.*\//)+'en?${par4}' ">
+					English
+ 							 </label>
+  						<label class="btn btn-secondary">
+   							 <input type="radio" name="langOption" id="spotSinhalaConvert" value="sinhala" autocomplete="off" <c:out value = "${sn}"/> onclick="window.location=window.location.href.match(/^.*\//)+'sn?${par4}' "> Sinhala
+ 								 </label>
+  						<label class="btn btn-secondary">
+   							 <input type="radio" name="langOption" id="spotTamilConvert" value="tamil" autocomplete="off" <c:out value = "${tm}"/> onclick="window.location=window.location.href.match(/^.*\//)+'tm?${par4}' "> Tamil
+  							</label>
+						</div>               
 
 		<div class="table-responsive">
                                 <table id="penaltyTable" class="table table-striped table-bordered container table-hover " style="width:100%;">
                                     <thead class="thead-light">
                                                 <tr>
                                         	<th>Penalty number</th>
-                                        	<th>Offence type</th>
-                                        	<th>Detected officer no</th>
-                                        	<th>Detected officer station</th>
-                                        	<th>End date</th>
+                                        	<th>Penalty type</th>
                                         	<th>Result</th>
                                         	<th>Who end penalty no</th>
                                         	<th>Who end penalty name</th>
+                                        	<th>End date</th>
                                         	<th>More</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                            <tr>
-                                            	<td>45613216</td>
-                                            	<td>Court</td>
-                                            	<td>4456465498</td>
-                                            	<td>Biyagama</td>
-                                            	<td>20/05/2021</td>
-                                            	<td>Fined 2000</td>
-												<td>98465698</td>
-												<td>Nipun jayasanka</td>
-                                            	<td><a>View More</a></td>
-                                            </tr>
+                                            <c:forEach items="${penalties}" var="driverPenalty">
+                                    
+	                                     	<tr>
+	                                     	<td> ${driverPenalty.penaltyNo} </td>
+	      									  <td> ${driverPenalty.type} </td>
+	      									    <td> ${driverPenalty.completedRecord.result} </td>
+	      									      <td> ${driverPenalty.completedRecord.useraccount.officer.fName} ${driverPenalty.completedRecord.useraccount.officer.lName}</td>
+	      									       <td> ${driverPenalty.completedRecord.useraccount.officer.officerNo}</td>
+	      									        <td> ${driverPenalty.completedRecord.formatedCompletedDate} </td>
+	      									         <td> <a href="/view/endedpenalty/view/${ln}?penaltyNo=${driverPenalty.penaltyNo}">More</a>  </td>
+	      									       </tr>
+	      									       </c:forEach>
                                     </tbody>  
                                 </table>
                             </div> 
@@ -297,7 +303,6 @@ input:checked + .slider:before {
         
 	</div>
 
-</div>
 
 </body>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -311,6 +316,48 @@ input:checked + .slider:before {
         <script type="text/javascript" src="https://editor.datatables.net/extensions/Editor/js/editor.bootstrap4.min.js"></script>
         
 <script>
+
+$(function(){
+	   $("#allCheck").click(function(){
+	        if($('[type="checkbox"]').is(":checked")){
+	       
+	        	if($("#todayCheck").is(":checked")){
+	        		$('#todayCheck').prop('checked', false);
+	        	}
+	        	
+	        	window.location.href = window.location.origin+'/view/endedpenalty/all/'+"${ln}"
+	        	
+	        	
+	        }else{
+	        	window.location.href = window.location.origin+'/view/endedpenalty/today/'+"${ln}"
+	        	
+	         }
+	        
+	   })
+	    
+	});
+	
+$(function(){
+	   $("#todayCheck").click(function(){
+	        if($('[type="checkbox"]').is(":checked")){
+	       
+	        	if($("#allCheck").is(":checked")){
+	        		$('#allCheck').prop('checked', false);
+	        	}
+	        	
+	        	window.location.href = window.location.origin+'/view/endedpenalty/today/'+"${ln}"
+	        	
+	        	
+	        }else{
+	        	window.location.href = window.location.origin+'/view/endedpenalty/all/'+"${ln}"
+	        	
+	         }
+	        
+	   })
+	    
+	});
+	
+	
 $(document).ready(function () {
     var table = $('#penaltyTable').DataTable({
         lengthChange: false,

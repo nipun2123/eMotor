@@ -34,10 +34,10 @@
             </div>
             <div class="w3-bar-block" >
                 <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" style="text-decoration: none" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-                <a href="/offer_penalty" class="w3-bar-item w3-button w3-padding mynavitem ${param.license}"  style="text-decoration: none" id="item"><i class="fa fa-tachometer fa-fw"></i>    View licenses</a>
-                  <a href="/penalty_payment" class="w3-bar-item w3-button w3-padding mynavitem ${param.payment}"  style="text-decoration: none" ><i class="fa fa-user-circle-o fa-fw"></i>    Penalty payment</a>
-                  <a href="/view_payments" class="w3-bar-item w3-button w3-padding mynavitem ${param.view_payments}"  style="text-decoration: none" ><i class="fa fa-user-circle-o fa-fw"></i>    View payments</a>
-                   <a href="/station_penalty" class="w3-bar-item w3-button w3-padding mynavitem ${param.penalty}"  style="text-decoration: none" ><i class="fa fa-user-circle-o fa-fw"></i>    View penalties</a>
+                <a href="/view/license" class="w3-bar-item w3-button w3-padding mynavitem ${param.license}"  style="text-decoration: none" id="item"><i class="fa fa-tachometer fa-fw"></i>    View licenses</a>
+                  <a href="/end/penalty" class="w3-bar-item w3-button w3-padding mynavitem ${param.end_penalty}"  style="text-decoration: none" ><i class="fa fa-user-circle-o fa-fw"></i>    End Penalty</a>
+                  <a href="/view/endedpenalty/all/en" class="w3-bar-item w3-button w3-padding mynavitem ${param.view_ended_penalty}"  style="text-decoration: none" ><i class="fa fa-user-circle-o fa-fw"></i>    View ended penalty </a>
+                   <a href="/view/station/penalty/all/en" class="w3-bar-item w3-button w3-padding mynavitem ${param.view_station_penalty}"  style="text-decoration: none" ><i class="fa fa-user-circle-o fa-fw"></i>    View station penalty</a>
                    <a href="#" data-toggle="modal" data-target="#changePasswordModel" class="w3-bar-item w3-button w3-padding mynavitem" onclick="changeColor()" style="text-decoration: none" ><i class="fa fa-cog fa-fw"></i>  Change Password</a>
                 <a href="../LogoutServlet" class="w3-bar-item w3-button w3-padding" style="text-decoration: none" ><i class="fa fa-power-off fa-fw"></i>    Logout</a>
             </div>

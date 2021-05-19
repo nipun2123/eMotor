@@ -2,6 +2,7 @@ package com.eMotor.Police.Officer.eMotorPoliceOfficer.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -29,10 +30,10 @@ public class CompletedRecord implements Serializable{
 	private int idCompletedRecords;
 	
 	@Column(name = "completeddate" , nullable = false)
-	private Date completedDate;
+	private LocalDateTime completedDate;
 	
 	
-	@Column(name="result", nullable = false, length = 100)
+	@Column(name="result", nullable = false, length = 500)
 	private String result;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -44,6 +45,11 @@ public class CompletedRecord implements Serializable{
 	private DriverPenalty driverPenalty;
 	
 	
+	@javax.persistence.Transient
+	private String formatedCompletedDate;
+
+
+
 
 
 	public CompletedRecord() {
@@ -53,7 +59,7 @@ public class CompletedRecord implements Serializable{
 	
 
 
-	public CompletedRecord(int idCompletedRecords, Date completedDate, String result,
+	public CompletedRecord(int idCompletedRecords, LocalDateTime completedDate, String result,
 			Useraccount useraccount, DriverPenalty driverPenalty) {
 		this.idCompletedRecords = idCompletedRecords;
 		this.completedDate = completedDate;
@@ -83,14 +89,14 @@ public class CompletedRecord implements Serializable{
 
 
 
-	public Date getCompletedDate() {
+	public LocalDateTime getCompletedDate() {
 		return completedDate;
 	}
 
 
 
 
-	public void setCompletedDate(Date completedDate) {
+	public void setCompletedDate(LocalDateTime completedDate) {
 		this.completedDate = completedDate;
 	}
 
@@ -137,6 +143,17 @@ public class CompletedRecord implements Serializable{
 		this.driverPenalty = driverPenalty;
 	}
 	
+	public String getFormatedCompletedDate() {
+		return formatedCompletedDate;
+	}
+
+
+
+
+	public void setFormatedCompletedDate(String formatedCompletedDate) {
+		this.formatedCompletedDate = formatedCompletedDate;
+	}
+
 	
 	@Override
 	public String toString() {

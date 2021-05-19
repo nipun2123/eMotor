@@ -89,6 +89,7 @@ public class ViewLicenseServiceIml implements ViewLicenseService{
 	 
 	 		if(theCompletedrecord.isPresent()) {
 	 			theCompletedrecord.get().setDriverPenalty(null);
+	 			theCompletedrecord.get().setFormatedCompletedDate(theCompletedrecord.get().getCompletedDate().format(format));
 	 			theDriverPenalty.setCompletedRecord(theCompletedrecord.get());
 	 		}
 	 		

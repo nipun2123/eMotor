@@ -48,7 +48,7 @@
 					
 			<div class="row">
 					<div class="col-sm-3">
-					 <form:label path="type" style="font-size: 20px;">Offence type:</form:label>
+					 <form:label path="type" style="font-size: 18px;">Offence type:</form:label>
 					</div>
 					<div class="col-sm-5">
 					   <form:select path="type" class="form-control browser-default custom-select"  id="type" >
@@ -64,7 +64,7 @@
 				
 			<div class="row">
 					<div class="col-sm-3">
-					 <form:label path="penaltyId" style="font-size: 20px;">Offence:</form:label>
+					 <form:label path="penaltyId" style="font-size: 18px;">Offence:</form:label>
 					</div>
 					<div class="col-sm-9">
 					    <form:select path="penaltyId" class="form-control browser-default custom-select"  id="offenceSelect" >
@@ -77,7 +77,7 @@
 					
 			<div class="row">
 					<div class="col-sm-3">
-					  <form:label path="vehicleNo" style="font-size: 20px;">Vehicle number:</form:label>
+					  <form:label path="vehicleNo" style="font-size: 18px;">Vehicle number:</form:label>
 					</div>
 					<div class="col-sm-5">
 					    <form:input path="vehicleNo" type="text" class="form-control" />
@@ -90,7 +90,7 @@
 					
 				<div class="row">
 					<div class="col-sm-3">
-					  	 <form:label path="place" style="font-size: 20px;">Place of Offence:</form:label>
+					  	 <form:label path="place" style="font-size: 18px;">Place of Offence:</form:label>
 					</div>
 					<div class="col-sm-5">
 					    <form:input path="place" type="text" class="form-control" />
@@ -102,7 +102,7 @@
 					
 					<div class="row">
 					<div class="col-sm-3">
-					  	<form:label path="court" style="font-size: 20px;">Court:</form:label>
+					  	<form:label path="court" style="font-size: 18px;">Court:</form:label>
 					</div>
 					<div class="col-sm-5">
 					   <form:input path="court" type="text" class="form-control" />
@@ -113,7 +113,7 @@
 					
 				<div class="row">
 					<div class="col-sm-3">
-					  	<form:label path="courtDate" style="font-size: 20px;">Court date:</form:label>
+					  	<form:label path="courtDate" style="font-size: 18px;">Court date:</form:label>
 					</div>
 					<div class="col-sm-5">
 					  <form:input path="courtDate" type="date" class="form-control" />
@@ -131,10 +131,10 @@
 		
 				<div class="row">
 				<div class="col-sm-4">
-					 <form:label path="licenseNo" style="font-size: 20px;">License number:</form:label>
+					 <form:label path="licenseNo" style="font-size: 18px;" >License number:</form:label>
 				</div>
 				<div class="col-sm-8">
-					 <form:input path="licenseNo"  style="font-size: 18px;" value= "${param.licenseNo}"/>
+					 <form:input path="licenseNo"  style="font-size: 18px;" value= "${param.licenseNo}" readonly="true" />
 				</div>
 			</div>
 			
@@ -142,10 +142,10 @@
 			
 			<div class="row">
 				<div class="col-sm-4">
-					 <form:label path="nic"  style="font-size: 20px;">NIC number:</form:label>
+					 <form:label path="nic"  style="font-size: 18px;">NIC number:</form:label>
 				</div>
 				<div class="col-sm-8">
-					 <form:input path="nic"  style="font-size: 18px;" value="${param.nic}"/>
+					 <form:input path="nic"  style="font-size: 18px;" value="${param.nic}" readonly="true" />
 				</div>
 			</div>
 			

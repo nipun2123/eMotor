@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -28,7 +29,10 @@
 
 
 	<jsp:include page="/WEB-INF/jsp/navbar.jsp">
+	
 		<jsp:param name="license" value="w3-blue" />
+	
+		
 	</jsp:include>
 	<jsp:include page="/WEB-INF/jsp/toolbar.jsp" />
 
@@ -253,7 +257,7 @@
 					  	 <label style="font-size: 18px;">Penalty end date:</label>
 					</div>
 					<div class="col-sm-9">
-					   <label style="font-size: 18px;">${driverPenalty.completedRecord.completedDate} </label>
+					   <label style="font-size: 18px;">${driverPenalty.completedRecord.formatedCompletedDate} </label>
 					</div>
 				</div>
 				

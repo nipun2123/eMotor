@@ -8,6 +8,6 @@ public class TestCotroller {
 
 	@RequestMapping("/hello")
 	public String hello() {
-		return "view_licenses";
+		return "view_station_penalty";
 	}
 }

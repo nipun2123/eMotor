@@ -17,4 +17,13 @@ public interface DriverPenaltyRepository extends JpaRepository<DriverPenalty, In
 	
 	@Query("SELECT dp FROM DriverPenalty dp where dp.penaltyNo = :penaltyNo") 
 	 public DriverPenalty findDriverPenaltyByNo(String penaltyNo);
+	
+	@Query("SELECT dp FROM DriverPenalty dp where dp.status = 'Pending' or  dp.status = 'Double Pending' or  dp.status = 'Court Pending'") 
+	 public List<DriverPenalty> findDriverPenaltyPending();
+	
+	@Query("SELECT dp FROM DriverPenalty dp where dp.status = 'Completed'") 
+	 public List<DriverPenalty> findDriverPenaltyEnded();
+	
+	@Query("SELECT dp FROM DriverPenalty dp where dp.status = 'Expired'") 
+	 public List<DriverPenalty> findDriverPenaltyExpired();
 }

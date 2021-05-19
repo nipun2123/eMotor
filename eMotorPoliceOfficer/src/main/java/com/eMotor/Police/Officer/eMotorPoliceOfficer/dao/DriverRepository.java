@@ -11,4 +11,7 @@ public interface DriverRepository extends JpaRepository<Driver, Integer> {
 
 	@Query("SELECT d FROM Driver d where d.licenseNo = :licenseNo and d.nic = :nic") 
 	 public Optional<Driver> findDriving(String licenseNo, String nic);
+	
+	@Query("SELECT d FROM Driver d where d.licenseNo = :licenseNo") 
+	 public Optional<Driver> findDriving(String licenseNo);
 }

@@ -76,7 +76,7 @@ public class DriverPenalty  implements Serializable{
 	@javax.persistence.Transient
 	private String formatedPenaltyFrom;
 
-
+    
 
 	public DriverPenalty() {
 
