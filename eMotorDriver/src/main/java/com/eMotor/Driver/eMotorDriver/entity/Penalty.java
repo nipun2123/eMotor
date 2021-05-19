@@ -38,7 +38,10 @@ public class Penalty {
 	@JoinColumn(name="fineamount_idfineamount")
 	private FineAmount fineAmount;
 	
+	@javax.persistence.Transient
+	private String penaltyCommon;
 	
+
 	public Penalty() {
 			
 	}
@@ -110,6 +113,15 @@ public class Penalty {
 		this.fineAmount = fineAmount;
 	}
 
+	public String getPenaltyCommon() {
+		return penaltyCommon;
+	}
+
+	public void setPenaltyCommon(String penaltyCommon) {
+		this.penaltyCommon = penaltyCommon;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Penalty [idPenalty=" + idPenalty + ", penaltyEnglish=" + penaltyEnglish + ", penaltySinhala="

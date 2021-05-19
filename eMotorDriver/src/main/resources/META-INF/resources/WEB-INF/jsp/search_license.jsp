@@ -186,12 +186,12 @@ fieldset{
 <div class="middle">
       <div id="search">
 
-        <form action="javascript:void(0);" method="get">
+        <form action="/search/license/en" method="get">
 
           <fieldset class="clearfix">
 
-            <p ><span class="fa fa-user"></span><input type="text"  Placeholder="License Number" required></p> 
-            <p><span class="fa fa-user"></span><input type="text"  Placeholder="NIC number" required></p> 
+            <p ><span class="fa fa-user"></span><input type="text" name="licenseNo" Placeholder="License Number" required></p> 
+            <p><span class="fa fa-user"></span><input type="text" name="nic" Placeholder="NIC number" required></p> 
             
              <div>
                               

@@ -1,5 +1,6 @@
 package com.eMotor.Driver.eMotorDriver.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
@@ -11,12 +12,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="driverpenalty")
-public class DriverPenalty {
+public class DriverPenalty  implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="iddriverpenalty", nullable = false)
@@ -24,28 +29,31 @@ public class DriverPenalty {
 	private int idDriverPenalty;
 	
 	@Column(name="penaltyno", nullable = false, length=12)
-	String penaltyNo;
+	private String penaltyNo;
 	
-	@Column(name = "penaltyfrom")
-	LocalDateTime penaltyFrom;
+	@Column(name = "penaltyfrom" , nullable = false)
+	private LocalDateTime penaltyFrom;
 	
-	@Column(name = "penaltyto")
-	LocalDateTime penaltyTo;
+	@Column(name = "penaltyto" , nullable = false)
+	private Date penaltyTo;
 	
 	@Column(name="place", nullable = false, length=45)
-	String place;
+	private String place;
 	
-	@Column(name="court", nullable = false, length=45)
-	String court;
+	@Column(name="vehicleno", nullable = false, length=10 )
+	private String vehicleNo;
+
+	@Column(name="court", nullable = false, length=45 )
+	private String court;
 	
-	@Column(name="courtdate")
-	Date courtDate;
+	@Column(name="courtdate", nullable = false)
+	private Date courtDate;
 	
 	@Column(name="type", nullable = false, length=5)
-	String type;
+	private String type;
 	
 	@Column(name="status", nullable = false, length=10)
-	String status;
+	private String status;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="driver_iddriver", nullable = false)
@@ -55,35 +63,41 @@ public class DriverPenalty {
 	@JoinColumn(name="penalty_idpenalty", nullable = false)
 	private Penalty penalty;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="courtpenalty_idcourtpenalty")
-	private CourtPenalty courtPenalty;
+
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="userccount_iduseraccount", nullable = false)
-	private UserAccount useraccount;
+	private Useraccount useraccount;
 
+	@javax.persistence.Transient
+	private CompletedRecord completedRecord;
 	
+	
+	@javax.persistence.Transient
+	private String formatedPenaltyFrom;
+
+    
+
 	public DriverPenalty() {
 
 	}
 	
-	public DriverPenalty(int idDriverPenalty, String penaltyNo, LocalDateTime penaltyFrom, LocalDateTime penaltyTo,
-			String place, String court, Date courtDate, String type, String status, Driver driver, Penalty penalty,
-			CourtPenalty courtPenalty, UserAccount useraccount) {
+	public DriverPenalty(int idDriverPenalty, String penaltyNo, LocalDateTime penaltyFrom, Date penaltyTo,
+			String place, String vehicleNo, String court, Date courtDate, String type, String status, Driver driver, Penalty penalty,
+		    Useraccount useraccount) {
 
 		this.idDriverPenalty = idDriverPenalty;
 		this.penaltyNo = penaltyNo;
 		this.penaltyFrom = penaltyFrom;
 		this.penaltyTo = penaltyTo;
 		this.place = place;
+		this.vehicleNo = vehicleNo;
 		this.court = court;
 		this.courtDate = courtDate;
 		this.type = type;
 		this.status = status;
 		this.driver = driver;
 		this.penalty = penalty;
-		this.courtPenalty = courtPenalty;
 		this.useraccount = useraccount;
 	}
 
@@ -111,11 +125,11 @@ public class DriverPenalty {
 		this.penaltyFrom = penaltyFrom;
 	}
 
-	public LocalDateTime getPenaltyTo() {
+	public Date getPenaltyTo() {
 		return penaltyTo;
 	}
 
-	public void setPenaltyTo(LocalDateTime penaltyTo) {
+	public void setPenaltyTo(Date penaltyTo) {
 		this.penaltyTo = penaltyTo;
 	}
 
@@ -175,31 +189,51 @@ public class DriverPenalty {
 		this.penalty = penalty;
 	}
 
-	public CourtPenalty getCourtPenalty() {
-		return courtPenalty;
-	}
+	
 
-	public void setCourtPenalty(CourtPenalty courtPenalty) {
-		this.courtPenalty = courtPenalty;
-	}
-
-	public UserAccount getUseraccount() {
+	public Useraccount getUseraccount() {
 		return useraccount;
 	}
 
-	public void setUseraccount(UserAccount useraccount) {
+	public void setUseraccount(Useraccount useraccount) {
 		this.useraccount = useraccount;
 	}
-	
 
+	
+	public CompletedRecord getCompletedRecord() {
+		return completedRecord;
+	}
+
+	public void setCompletedRecord(CompletedRecord completedRecord) {
+		this.completedRecord = completedRecord;
+	}
+	
+	
+	public String getVehicleNo() {
+		return vehicleNo;
+	}
+
+	public void setVehicleNo(String vehicleNo) {
+		this.vehicleNo = vehicleNo;
+	}
+	
+	public String getFormatedPenaltyFrom() {
+		return formatedPenaltyFrom;
+	}
+
+	public void setFormatedPenaltyFrom(String formatedPenaltyFrom) {
+		this.formatedPenaltyFrom = formatedPenaltyFrom;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "DriverPenalty [idDriverPenalty=" + idDriverPenalty + ", penaltyNo=" + penaltyNo + ", penaltyFrom="
-				+ penaltyFrom + ", penaltyTo=" + penaltyTo + ", place=" + place + ", court=" + court + ", courtDate="
+				+ penaltyFrom + ", penaltyTo=" + penaltyTo + ", place=" + place + ", vehicleNo="+vehicleNo+", court=" + court + ", courtDate="
 				+ courtDate + ", type=" + type + ", status=" + status + ", driver=" + driver + ", penalty=" + penalty
-				+ ", courtPenalty=" + courtPenalty + ", useraccount=" + useraccount + "]";
+				+ ", useraccount=" + useraccount + "]";
 	}
 	
-	
+
 	
 }

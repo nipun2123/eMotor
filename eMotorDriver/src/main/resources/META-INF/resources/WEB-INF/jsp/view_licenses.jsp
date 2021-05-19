@@ -1,5 +1,7 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,95 +27,90 @@
 </head>
 <body>
 
-	<div style="margin-top: 23px;">
 
-	
-			
-			 
-			 
-	<div  class="container-fluid">
+	<div  class="container mt-4" >
 	<div class="row">
 		<div class="col-sm-8">
 		
 		<div class="row">
 			<div class="col-sm-4">
-				 <b style="font-size: 20px;">Licence number</b>
+				 <b style="font-size: 18px;">Licence number</b>
 			</div>
 			<div class="col-sm-8">
-				 <label style="font-size: 18px;">B3838805</label>
+				 <label style="font-size: 18px;">${searchedLicense.license.licenseNo}</label>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col-sm-4">
-				 <b style="font-size: 20px;">NIC number</b>
+				 <b style="font-size: 18px;">NIC number</b>
 			</div>
 			<div class="col-sm-8">
-				 <label style="font-size: 18px;">20011202938</label>
+				 <label style="font-size: 18px;">${searchedLicense.license.nic}</label>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col-sm-4">
-				 <b style="font-size: 20px;">Full name:</b>
+				 <b style="font-size: 18px;">Full name:</b>
 			</div>
 			<div class="col-sm-8">
-				<label style="font-size: 18px;">Amarakoon Appuhamillage Nipun Jayasanka Amarakoon</label>
+				<label style="font-size: 18px;">${searchedLicense.license.name}</label>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col-sm-4">
-				 <b style="font-size: 20px;">Address:</b>
+				 <b style="font-size: 18px;">Address:</b>
 			</div>
 			<div class="col-sm-8">
-				<label style="font-size: 18px;">534/1/6, Prathiba mawatha, Henihaththa Biyagama</label>
+				<label style="font-size: 18px;">${searchedLicense.license.address}</label>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col-sm-4">
-				  <b style="font-size: 20px;">Date of Birth:</b>
+				  <b style="font-size: 18px;">Date of Birth:</b>
 			</div>
 			<div class="col-sm-8">
-				<label style="font-size: 18px;">21/04/2000</label>
+				<label style="font-size: 18px;">${searchedLicense.license.dob}</label>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col-sm-4">
-				  <b style="font-size: 20px;">Blood group:</b>
+				  <b style="font-size: 18px;">Blood group:</b>
 			</div>
 			<div class="col-sm-8">
-				<label style="font-size: 18px;">O+</label>
+				<label style="font-size: 18px;">${searchedLicense.license.bloodGroup}</label>
 			</div>
 		</div>
 		
 		
 		<div class="row">
 			<div class="col-sm-4">
-				  <b style="font-size: 20px;">License issue date:</b>
+				  <b style="font-size: 18px;">License issue date:</b>
 			</div>
 			<div class="col-sm-8">
-				<label style="font-size: 18px;">08/05/2018</label>
+				<label style="font-size: 18px;">${searchedLicense.license.issueDate}</label>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col-sm-4">
-				  <b style="font-size: 20px;">License expire date:</b>
+				  <b style="font-size: 18px;">License expire date:</b>
 			</div>
 			<div class="col-sm-8">
-				<label style="font-size: 18px;">04/05/2026</label>
+				<label style="font-size: 18px;">${searchedLicense.license.expireDate}</label>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col-sm-4">
-				  <b style="font-size: 20px;">License Status:</b>
+				  <b style="font-size: 18px;">License Status:</b>
 			</div>
 			<div class="col-sm-8">
-				<label style="font-size: 18px;">Suspended to 6 months</label>
+				<label style="font-size: 18px;"class="text-danger"><c:if test="${searchedLicense.suspend != null}"  > Suspended from ${searchedLicense.suspend.suspendedFrom} to ${searchedLicense.suspend.suspendedTo} </c:if></label>
 			</div>
 		</div>
 			</div>
@@ -130,42 +127,37 @@
                                     </thead>
 
                                     <tbody>
-                                            <tr>
-                                            	<td>Bike</td>
-												<td>04/05/2018</td>
-												<td>04/05/2026</td>
-                                            </tr>
-                                              <tr>
-                                            	<td>Van</td>
-												<td>04/05/2018</td>
-												<td>04/05/2026</td>
-                                            </tr>
-                                              <tr>
-                                            	<td>Car</td>
-												<td>04/05/2018</td>
-												<td>04/05/2026</td>
-                                            </tr>
+                                            <c:forEach items="${searchedLicense.license.drivingLicenseClasses}" var="vehicleClasses">
+                                     
+	                                     	<tr>
+	      									  <td> ${vehicleClasses.vehicleClass} </td>
+	      									    <td> ${vehicleClasses.classValidFrom} </td>
+	      									      <td> ${vehicleClasses.classValidTo} </td>
+	      									 </tr> 
+   									 </c:forEach>
                                     </tbody>   
                                 </table>
                             </div>
 		</div>
 	</div>
-	
-		<button type="button" class="btn btn-primary float-right mr-5" > Know about penalty </button>
-		
+	<button type="button" class="btn btn-primary float-right mr-5" onclick="location.href='/penalty/details/${ln}' "> Know about penalty details</button>
+                     
       <br/>   
        <br/>      
       <hr style="height:1px;border-width:0;color:gray;background-color:gray">  
       
-      	 <button type="button" class="btn btn-primary float-right m-2" >
-                                Tamil
-                            </button>
-                            <button type="button" class="btn btn-primary float-right m-2" >
-                                English
-                            </button>
-                             <button type="button" class="btn btn-primary float-right m-2" >
-                                Sinhala
-                            </button>                
+           <div class="btn-group btn-group-toggle float-right m-2 " data-toggle="buttons" >
+  							<label class="btn btn-secondary active">
+    					<input type="radio" name="langOption" id="spotEnglishConvert" value="english" autocomplete="off" <c:out value = "${en}"/> onclick="window.location=window.location.href.match(/^.*\//)+'en'+'?licenseNo=${searchedLicense.license.licenseNo}&nic=${searchedLicense.license.nic}' ">
+					English
+ 							 </label>
+  						<label class="btn btn-secondary">
+   							 <input type="radio" name="langOption" id="spotSinhalaConvert" value="sinhala" autocomplete="off" <c:out value = "${sn}"/> onclick="window.location=window.location.href.match(/^.*\//)+'sn'+'?licenseNo=${searchedLicense.license.licenseNo}&nic=${searchedLicense.license.nic}' "> Sinhala
+ 								 </label>
+  						<label class="btn btn-secondary">
+   							 <input type="radio" name="langOption" id="spotTamilConvert" value="tamil" autocomplete="off" <c:out value = "${tm}"/> onclick="window.location=window.location.href.match(/^.*\//)+'tm'+'?licenseNo=${searchedLicense.license.licenseNo}&nic=${searchedLicense.license.nic}' "> Tamil
+  							</label>
+						</div>             
 
 		<div class="table-responsive">
                                 <table id="penaltyTable" class="table table-striped table-bordered container table-hover " style="width:100%;">
@@ -182,22 +174,23 @@
                                     </thead>
 
                                     <tbody>
-                                            <tr>
-                                            <td>54526559</td>
-                                            	<td>vdsvdsv dsvsvs dsvdsvsd dsvdsvsd  wdwfwe rereg ewfew</td>
-                                            	<td>Court</td>
-                                            	<td>20/05/2021</td>
-                                            	<td>30/05/2021</td>
-                                            	<td>Pending</td>
-                                            	<td><a>View More</a></td>
-
-                                            </tr>
+                                           <c:forEach items="${searchedLicense.driverPenalties}" var="driverPenalty">
+                                     
+	                                     	<tr>
+	      									  <td> ${driverPenalty.penaltyNo} </td>
+	      									    <td> ${driverPenalty.penalty.penaltyCommon} </td>
+	      									      <td> ${driverPenalty.penalty.type} </td>
+	      									      <td> ${driverPenalty.formatedPenaltyFrom} </td>
+	      									      <td> ${driverPenalty.penaltyTo} </td>
+	      									      <td> ${driverPenalty.status} </td>
+	      									      <td><a href="penalty/${ln}?penaltyNo=${driverPenalty.penaltyNo}">More</a> </td>
+	      									 </tr> 
+   									 </c:forEach>
                                     </tbody>  
                                 </table>
                             </div> 
 	</div>
-
-</div>
+	
 
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
