@@ -1,6 +1,8 @@
 package com.eMotor.Driver.eMotorDriver.entity;
 
 
+import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
@@ -15,7 +17,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="suspendedlicense")
-public class SuspendedLicense {
+public class SuspendedLicense  implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="idsuspendedlicense", nullable = false)
@@ -23,10 +30,10 @@ public class SuspendedLicense {
 	private int idSuspendedLicense;
 	
 	@Column(name="suspendedfrom")
-	private LocalDateTime suspendedFrom;
+	private Date suspendedFrom;
 	
 	@Column(name="suspendedto")
-	private LocalDateTime suspendedTo;
+	private Date suspendedTo;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="driver_iddriver", nullable = false)
@@ -38,7 +45,7 @@ public class SuspendedLicense {
 	} 
 	
 
-	public SuspendedLicense(int idSuspendedLicense, LocalDateTime suspendedFrom, LocalDateTime suspendedTo, Driver driver) {
+	public SuspendedLicense(int idSuspendedLicense, Date suspendedFrom, Date suspendedTo, Driver driver) {
 
 		this.idSuspendedLicense = idSuspendedLicense;
 		this.suspendedFrom = suspendedFrom;
@@ -54,19 +61,19 @@ public class SuspendedLicense {
 		this.idSuspendedLicense = idSuspendedLicense;
 	}
 
-	public LocalDateTime getsuspendedFrom() {
+	public Date getsuspendedFrom() {
 		return suspendedFrom;
 	}
 
-	public void setsuspendedFrom(LocalDateTime suspendedFrom) {
+	public void setsuspendedFrom(Date suspendedFrom) {
 		this.suspendedFrom = suspendedFrom;
 	}
 
-	public LocalDateTime getsuspendedTo() {
+	public Date getsuspendedTo() {
 		return suspendedTo;
 	}
 
-	public void setsuspendedTo(LocalDateTime suspendedTo) {
+	public void setsuspendedTo(Date suspendedTo) {
 		this.suspendedTo = suspendedTo;
 	}
 
