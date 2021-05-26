@@ -26,6 +26,14 @@ public class Useraccount  implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idUserAccount;
 	
+	@Column(name="username", nullable = false, length=12)
+	private String username;
+	
+	@Column(name="password",nullable = false, length=150)
+	private String password;
+	
+
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="policeofficer_idofficer", nullable = false)
 	private PoliceOfficer officer;
@@ -63,6 +71,25 @@ public class Useraccount  implements Serializable{
 		this.officer = officer;
 	}
 
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	@Override
 	public String toString() {

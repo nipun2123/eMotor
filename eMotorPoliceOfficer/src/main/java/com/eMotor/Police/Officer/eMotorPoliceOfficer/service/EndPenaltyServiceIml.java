@@ -16,11 +16,13 @@ import com.eMotor.Police.Officer.eMotorPoliceOfficer.beans.EndPenaltyBean;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.CompletedRecordRepository;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.DriverPenaltyRepository;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.DriverRepository;
+import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.PenaltyDateSettingsRepository;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.SuspendedLicenseRepository;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.UseraccountRepository;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.CompletedRecord;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.Driver;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.DriverPenalty;
+import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.PenaltyDateSettings;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.SuspendedLicense;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.Useraccount;
 
@@ -42,6 +44,9 @@ public class EndPenaltyServiceIml implements EndPenaltyService{
 	@Autowired
 	private SuspendedLicenseRepository suspendedLicenseRepository;
 	
+	@Autowired
+	private PenaltyDateSettingsRepository penaltyDateSettingsRepository;
+	
 	@Override
 	public List<DriverPenalty> findPenaltiesByLicenseNo(String licenseNo) {
 		  List<DriverPenalty> newPenaltyList = new ArrayList<DriverPenalty>();
@@ -55,13 +60,64 @@ public class EndPenaltyServiceIml implements EndPenaltyService{
 		  
 	    	for(DriverPenalty theDriverPenalty : driverPenaltyList) {
 	    		
-	    		if(!(theDriverPenalty.getStatus().equalsIgnoreCase("completed") ||  theDriverPenalty.getStatus().equalsIgnoreCase("expired"))) {
+	    		if(!theDriverPenalty.getStatus().equalsIgnoreCase("completed")) {
+	    			
+	    			  Calendar cal = Calendar.getInstance();
+	    				cal.add(Calendar.DAY_OF_MONTH, -1);  
+	    			
+	    			if(theDriverPenalty.getPenalty().getType().equalsIgnoreCase("spot")) {
+		    		
+		    				
+		    				ArrayList<PenaltyDateSettings> dateSettingsList =  (ArrayList<PenaltyDateSettings>) penaltyDateSettingsRepository.findAll();
+		    				
+		    				PenaltyDateSettings dateSettings = dateSettingsList.get(dateSettingsList.size()-1);
+		    				
+		    				
+		    				java.util.Date fromDate = java.sql.Timestamp.valueOf(theDriverPenalty.getPenaltyFrom().plusDays(dateSettings.getDoubleDateCount()));
+		    				
+		    				if(fromDate.before(new java.util.Date() )) {
+		    					theDriverPenalty.setStatus("Double pending");
+		    				}
+		    				
+		    				if(theDriverPenalty.getPenaltyTo().before(new java.util.Date() )) {
+		    					theDriverPenalty.setStatus("Court pending");
+		    					theDriverPenalty.setType("court");
+		    				}
+		    				
+		    				if(theDriverPenalty.getCourtDate().before(new java.util.Date(cal.getTimeInMillis()) )) {
+		    					theDriverPenalty.setStatus("Expired");
+		    					theDriverPenalty.setType("court");
+		    				}
+		    			
+		    		}else if(theDriverPenalty.getPenalty().getType().equalsIgnoreCase("court")) {
+		    		
+		    				
+		    			
+		    				if(theDriverPenalty.getCourtDate().before(new java.util.Date(cal.getTimeInMillis()) )) {
+		    					theDriverPenalty.setStatus("Expired");
+		    				}
+		    		
+		    		}else if(theDriverPenalty.getPenalty().getType().equalsIgnoreCase("warn")) {
+		    			
+		    	
+		    				
+		    				if(theDriverPenalty.getPenaltyTo().before(new java.util.Date() )) {
+		    					theDriverPenalty.setStatus("Court pending");
+		    					theDriverPenalty.setType("court");
+		    				}
+		    				
+		    				if(theDriverPenalty.getCourtDate().before(new java.util.Date(cal.getTimeInMillis()) )) {
+		    					theDriverPenalty.setStatus("Expired");
+		    					theDriverPenalty.setType("court");
+		    				}
+		    	
+		    		}
 	    			
 	    			  DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
 		    	       theDriverPenalty.setFormatedPenaltyFrom(theDriverPenalty.getPenaltyFrom().format(format));
 		    	       
 		    	       
-	    			if(theDriverPenalty.getStatus().equalsIgnoreCase("court pending") ) {
+	    			if(theDriverPenalty.getType().equalsIgnoreCase("court")) {
 	    			  Useraccount loggedUseraccount = useraccountRepository.findById(loggedUserId).get();
 	    				
 	    			  String penaltyPoliceStation =  theDriverPenalty.getUseraccount().getOfficer().getStation().getPoliceStation();
@@ -94,13 +150,65 @@ public class EndPenaltyServiceIml implements EndPenaltyService{
 		int loggedUserId = 1;
 		DriverPenalty theDriverPenalty =  driverPenaltyRepository.findDriverPenaltyByNo(penaltyNo);
 		
-		if(!(theDriverPenalty.getStatus().equalsIgnoreCase("completed") ||  theDriverPenalty.getStatus().equalsIgnoreCase("expired"))) {
+		if(!theDriverPenalty.getStatus().equalsIgnoreCase("completed")) {
+			
+			
+			  Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.DAY_OF_MONTH, -1);  
+			
+			if(theDriverPenalty.getPenalty().getType().equalsIgnoreCase("spot")) {
+  		
+  				
+  				ArrayList<PenaltyDateSettings> dateSettingsList =  (ArrayList<PenaltyDateSettings>) penaltyDateSettingsRepository.findAll();
+  				
+  				PenaltyDateSettings dateSettings = dateSettingsList.get(dateSettingsList.size()-1);
+  				
+  				
+  				java.util.Date fromDate = java.sql.Timestamp.valueOf(theDriverPenalty.getPenaltyFrom().plusDays(dateSettings.getDoubleDateCount()));
+  				
+  				if(fromDate.before(new java.util.Date() )) {
+  					theDriverPenalty.setStatus("Double pending");
+  				}
+  				
+  				if(theDriverPenalty.getPenaltyTo().before(new java.util.Date() )) {
+  					theDriverPenalty.setStatus("Court pending");
+  					theDriverPenalty.setType("court");
+  				}
+  				
+  				if(theDriverPenalty.getCourtDate().before(new java.util.Date(cal.getTimeInMillis()) )) {
+  					theDriverPenalty.setStatus("Expired");
+  					theDriverPenalty.setType("court");
+  				}
+  			
+  		}else if(theDriverPenalty.getPenalty().getType().equalsIgnoreCase("court")) {
+  		
+  				
+  			
+  				if(theDriverPenalty.getCourtDate().before(new java.util.Date(cal.getTimeInMillis()) )) {
+  					theDriverPenalty.setStatus("Expired");
+  				}
+  		
+  		}else if(theDriverPenalty.getPenalty().getType().equalsIgnoreCase("warn")) {
+  			
+  	
+  				
+  				if(theDriverPenalty.getPenaltyTo().before(new java.util.Date() )) {
+  					theDriverPenalty.setStatus("Court pending");
+  					theDriverPenalty.setType("court");
+  				}
+  				
+  				if(theDriverPenalty.getCourtDate().before(new java.util.Date(cal.getTimeInMillis()) )) {
+  					theDriverPenalty.setStatus("Expired");
+  					theDriverPenalty.setType("court");
+  				}
+  	
+  		}
 			
 			  DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
   	       theDriverPenalty.setFormatedPenaltyFrom(theDriverPenalty.getPenaltyFrom().format(format));
   	       
   	       
-			if(theDriverPenalty.getStatus().equalsIgnoreCase("court pending") ) {
+  	       if(theDriverPenalty.getType().equalsIgnoreCase("court")) {
 			  Useraccount loggedUseraccount = useraccountRepository.findById(loggedUserId).get();
 				
 			  String penaltyPoliceStation =  theDriverPenalty.getUseraccount().getOfficer().getStation().getPoliceStation();

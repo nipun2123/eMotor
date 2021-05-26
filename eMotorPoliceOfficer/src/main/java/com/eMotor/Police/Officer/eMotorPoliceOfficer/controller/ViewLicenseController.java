@@ -1,8 +1,12 @@
 package com.eMotor.Police.Officer.eMotorPoliceOfficer.controller;
 
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,11 +23,12 @@ import com.eMotor.Police.Officer.eMotorPoliceOfficer.beans.OfferPenaltyBean;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.DriverPenalty;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.Penalty;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.service.OfferPenaltyService;
+import com.eMotor.Police.Officer.eMotorPoliceOfficer.service.SecurityService;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.service.ViewLicenseService;
 
 
 @Controller
-@RequestMapping("/view/license")
+@RequestMapping({"/","/view/license"})
 public class ViewLicenseController {
 
 
@@ -33,8 +38,11 @@ public class ViewLicenseController {
 	@Autowired
 	private OfferPenaltyService offerPenaltyService;
 	
+	@Autowired
+	private SecurityService securityService;
 	
-	@GetMapping("/search/en")
+	
+	@GetMapping({"/", "/search/en"})
 	public String findDrivingLicenseEnglish(@RequestParam(value = "licenseNo",defaultValue="0")String licenseNo, @RequestParam(value = "nic", defaultValue="0")String nic, Model theModel) {
 		
 	
@@ -42,15 +50,19 @@ public class ViewLicenseController {
 			return "redirect:/view/license";
 		}
 		
-		Map<String, Object> searchedLicense =  viewLicenseService.searchDrivingLicense(licenseNo, nic);
+		Map<String, Object> searchedLicense =  viewLicenseService.searchDrivingLicense(licenseNo.trim(), nic.trim());
 		
 		List<DriverPenalty> driverPenaltyList = (List<DriverPenalty>) searchedLicense.get("driverPenalties");
+		
+		if (!driverPenaltyList.isEmpty()) {
+			
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
 			 driverPenalty.getPenalty().setPenaltyCommon( driverPenalty.getPenalty().getPenaltyEnglish());
 			 
 		 }
+		}
 		
 		theModel.addAttribute("searchedLicense", searchedLicense);
 		
@@ -130,8 +142,9 @@ public class ViewLicenseController {
 	
 	
 	@RequestMapping
-	public String showViewLicenses(Model theModel) {
+	public String showViewLicenses(HttpSession session, Principal principal, Model theModel) {
 		
+		session.setAttribute("name", principal.getName()+"Divya Nimsara");
 		OfferPenaltyBean offerPenaltyBean = new OfferPenaltyBean();
 		
 		theModel.addAttribute("offerPenaltyBean", offerPenaltyBean);

@@ -63,22 +63,26 @@ public class OfferPenaltyServiceIml implements OfferPenaltyService{
 		
 		if(theOfferPenaltyBean.getType().equalsIgnoreCase("court")){
 			theDriverPenalty.setStatus("Court pending");
+			
+			theDriverPenalty.setPenaltyTo(theOfferPenaltyBean.getCourtDate());
 		}else {
 			theDriverPenalty.setStatus("Pending");
+			
+			ArrayList<PenaltyDateSettings> dateSettingsList =  (ArrayList<PenaltyDateSettings>) penaltyDateSettingsRepository.findAll();
+			
+			PenaltyDateSettings dateSettings = dateSettingsList.get(dateSettingsList.size()-1);
+			
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DAY_OF_MONTH, dateSettings.getCourtDateCount());  
+			
+			theDriverPenalty.setPenaltyTo(new Date(cal.getTimeInMillis()));
 		}
 		
 		theDriverPenalty.setPenalty(thePenalty);
 		theDriverPenalty.setDriver(foundDriver.get());
 		theDriverPenalty.setUseraccount(theUseraccount);
 		
-		ArrayList<PenaltyDateSettings> dateSettingsList =  (ArrayList<PenaltyDateSettings>) penaltyDateSettingsRepository.findAll();
-		
-		PenaltyDateSettings dateSettings = dateSettingsList.get(dateSettingsList.size()-1);
-		
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DAY_OF_MONTH, dateSettings.getCourtDateCount());  
-		
-		theDriverPenalty.setPenaltyTo(new Date(cal.getTimeInMillis()));
+	
 		
 		
 		

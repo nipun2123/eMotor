@@ -143,7 +143,20 @@
 				  <b style="font-size: 18px;">License Status:</b>
 			</div>
 			<div class="col-sm-8">
-				<label style="font-size: 18px;"class="text-danger"><c:if test="${searchedLicense.suspend != null}"  > Suspended from ${searchedLicense.suspend.suspendedFrom} to ${searchedLicense.suspend.suspendedTo} </c:if></label>
+				<label style="font-size: 18px;"class="text-danger">
+				
+				  <c:choose>
+  												<c:when test="${searchedLicense.suspend != null}">
+  													Suspended from ${searchedLicense.suspend.suspendedFrom} to ${searchedLicense.suspend.suspendedTo} 
+  												</c:when>
+  												
+  												<c:when test="${searchedLicense.suspend == null}">
+  													Active
+  												</c:when>
+ 
+											</c:choose>
+											
+				</label>
 			</div>
 		</div>
 			</div>

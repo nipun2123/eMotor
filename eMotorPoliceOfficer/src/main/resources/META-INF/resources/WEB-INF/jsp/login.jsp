@@ -1,4 +1,7 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -186,19 +189,21 @@ fieldset{
 <div class="middle">
       <div id="login">
 
-        <form action="javascript:void(0);" method="get">
+        <form action="/login" method="POST" class="form-signin">
 
           <fieldset class="clearfix">
-
-            <p ><span class="fa fa-user"></span><input type="text"  Placeholder="Username" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
-            <p><span class="fa fa-lock"></span><input type="password"  Placeholder="Password" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
-            
+			<div class="form-group ${error != null ? 'has-error' : ''}">
+			 <span>${message}</span>
+            <p ><span class="fa fa-user"></span><input name="username" type="text"  Placeholder="Username" /></p> <!-- JS because of IE support; better: placeholder="Username" -->
+            <p><span class="fa fa-lock"></span><input name="password" type="password"  Placeholder="Password" /></p> <!-- JS because of IE support; better: placeholder="Password" -->
+            <span>${error}</span>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
              <div>
                                 <span style="width:48%; text-align:left;  display: inline-block;"><a  class="small-text" href="#" data-toggle="modal" data-target="#exampleModal" >Forgot
                                 password?</a></span>
                                 <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" value="Let me in"></span>
                             </div>
-
+			</div>
           </fieldset>
 <div class="clearfix"></div>
         </form>

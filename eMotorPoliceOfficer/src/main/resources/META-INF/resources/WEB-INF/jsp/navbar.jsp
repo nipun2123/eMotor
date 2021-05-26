@@ -1,3 +1,5 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -25,7 +27,12 @@
 	
         <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
             <div class="w3-container">
-                <span>Welcome,     <strong>Nipun</strong></span><br>
+            
+              <c:if test="${pageContext.request.userPrincipal.name != null}">
+       
+        <span>Welcome,     <strong>${pageContext.request.userPrincipal.name}</strong><c:out value="${sessionScope.name}"/></span><br>
+    </c:if>
+                
 
             </div>
             <hr>
@@ -39,9 +46,12 @@
                   <a href="/view/endedpenalty/all/en" class="w3-bar-item w3-button w3-padding mynavitem ${param.view_ended_penalty}"  style="text-decoration: none" ><i class="fa fa-user-circle-o fa-fw"></i>    View ended penalty </a>
                    <a href="/view/station/penalty/all/en" class="w3-bar-item w3-button w3-padding mynavitem ${param.view_station_penalty}"  style="text-decoration: none" ><i class="fa fa-user-circle-o fa-fw"></i>    View station penalty</a>
                    <a href="#" data-toggle="modal" data-target="#changePasswordModel" class="w3-bar-item w3-button w3-padding mynavitem" onclick="changeColor()" style="text-decoration: none" ><i class="fa fa-cog fa-fw"></i>  Change Password</a>
-                <a href="../LogoutServlet" class="w3-bar-item w3-button w3-padding" style="text-decoration: none" ><i class="fa fa-power-off fa-fw"></i>    Logout</a>
+                <a  class="w3-bar-item w3-button w3-padding" style="text-decoration: none" onclick="document.forms['logoutForm'].submit()" ><i class="fa fa-power-off fa-fw"></i>    Logout</a>
             </div>
         </nav>
+ <form id="logoutForm" method="POST" action="/logout">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
 
         <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
         
