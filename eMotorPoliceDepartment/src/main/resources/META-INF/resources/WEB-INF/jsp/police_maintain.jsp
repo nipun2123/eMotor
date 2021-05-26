@@ -50,9 +50,7 @@
                                 Update police officer
                             </button>
 
-							   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sendPasswordAgain">
-                                Send password again
-                            </button>
+							
                             
                             <div class="table-responsive">
                                 <table id="officerTable" class="table table-striped table-bordered container table-hover " style="width:100%;">
@@ -76,8 +74,8 @@
 	      									  <td> ${theOfficer.station.policeStation} </td>
 	      									  <td> ${theOfficer.nic} </td>
 	      									  <td> ${theOfficer.officerNo} </td>
-	      									  <td > ${theOfficer.fName} ${theOfficer.lName} </td>
-	      									  <td > ${theOfficer.tel} </td>
+	      									  <td> ${theOfficer.fName} ${theOfficer.lName} </td>
+	      									  <td> ${theOfficer.tel} </td>
 	      									  
 	      									  <c:choose>
   												<c:when test="${theOfficer.availability==true}">
@@ -199,7 +197,7 @@
                                 
                                <div class="form-group">
                                     <form:label path="tel">Mobile number</form:label>
-                                    <form:input path="tel" type="number" class="form-control" id="tel"/>
+                                    <form:input path="tel" type="text" class="form-control" id="tel"/>
                                 </div>
                                
                       
@@ -265,7 +263,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <form:form action="/department/police/savestation" method="POST" modelAttribute = "policeStation" >
+                            <form:form action="/department/police/savestation" method="POST" modelAttribute = "policeStationEntity" >
 								<div class="form-group">
                                     <form:label path="provinceName">Province</form:label>
                                     <form:select path="provinceName" id= "provinceName" class="form-control browser-default custom-select">
@@ -275,39 +273,38 @@
    									 </c:forEach>
                                             
                                     </form:select>
-                                    <form:errors path="provinceName" />
                                 </div>
 
 								 <div class="form-group">
                                     <form:label path="policeStation">Police station</form:label>
                                     <form:input path="policeStation" id="policeStation" type="text"  class="form-control"/>
-                          			<form:errors path="policeStation" />
+                          		
 								</div>
 								
                                 <div class="form-group">
                                     <form:label path="oic">Traffic OIC</form:label>
                                     <form:input path="oic" id="oic" type="text" class="form-control"/>
-                                    <form:errors path="oic" />
+                                  
                                 </div>
 
                                <div class="form-group">
                                     <form:label path="oicOffice">Traffic OIC office</form:label>
-                                    <form:input path="oicOffice" id="oicOffice" type="number" class="form-control"  />
-                                    <form:errors path="oicOffice" />
+                                    <form:input path="oicOffice" id="oicOffice" type="text" class="form-control"  />
+                                 
                                 </div>
                                
                                
                                 <div class="form-group">
                                     <form:label path="oicMobile">Traffic OIC mobile</form:label>
-                                    <form:input path="oicMobile" id="oicMobile" type="number" class="form-control"  />
-                                    <form:errors path="oicMobile" />
+                                    <form:input path="oicMobile" id="oicMobile" type="text" class="form-control"  />
+                                 
                                 </div>
                                
                                
                                <div class="form-group">
                                     <form:label path="general">General number</form:label>
-                                    <form:input path="general" id="general" type="number" class="form-control" />
-                                    <form:errors path="general" />
+                                    <form:input path="general" id="general" type="text" class="form-control" />
+                                    
                                 </div>
                                
 								 <form:input path="oldPoliceStation" id="oldPoliceStation" type="text"  style="display: none"/>

@@ -45,7 +45,7 @@ public class PoliceMaintainController {
 	theModel.addAttribute("staions",thePoliceStation);
 	
 	PoliceStation policeStation = new PoliceStation();
-	theModel.addAttribute("policeStation",policeStation);
+	theModel.addAttribute("policeStationEntity",policeStation);
 	
 	List<PoliceOfficer>	thePoliceOfficer = policeOfficerService.findAll();
 	theModel.addAttribute("officers",thePoliceOfficer);
@@ -59,13 +59,13 @@ public class PoliceMaintainController {
 	 
 	
 	@PostMapping("/police/savestation")
-	public String saveStation(@ModelAttribute("policeStation") PoliceStation thePoliceStation){
+	public String saveStation(@ModelAttribute("policeStationEntity") PoliceStation thePoliceStation){
 		
 		
 		PoliceStation newPoliceStation =  policeStationService.save(thePoliceStation);
 		
 		if(newPoliceStation == null) {
-			throw new RuntimeException("The police station not registred- "+ thePoliceStation.getPoliceStation());
+			throw new RuntimeException("The police station not registered- "+ thePoliceStation.getPoliceStation());
 		}
 		
 		return "redirect:/department/police/maintain";
@@ -87,20 +87,7 @@ public class PoliceMaintainController {
 	}
 	
 	
-	@GetMapping("/police/sendpassword")
-	public String sendPasswordAgain(@RequestParam("nic") String nic){
-		
-		boolean b = policeOfficerService.sendPasswordAgain(nic);
-		
-		if(b) {
-			return "redirect:/department/police/maintain";
-		}else {
-			return "redirect:/department/police/maintain"+nic;
-		}
-		
-		
-	}
-	
+
 	
 	
 	

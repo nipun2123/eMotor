@@ -12,7 +12,7 @@ import com.eMotor.Police.Department.eMotorPoliceDepartment.entity.PoliceStation;
 
 @Service
 public class PoliceStationServiceIml implements PoliceStationService {
-
+ 
 	@Autowired
 	private PoliceStationRepository policeStationRepository;
 	
@@ -22,6 +22,8 @@ public class PoliceStationServiceIml implements PoliceStationService {
 
 	@Override
 	public PoliceStation save(PoliceStation thePoliceStation) {
+		
+		
 		
 		thePoliceStation.setProvince(provinceRepository.findByProvince(thePoliceStation.getProvinceName()));
 	
@@ -63,9 +65,11 @@ public class PoliceStationServiceIml implements PoliceStationService {
 
 	@Override
 	public List<PoliceStation> findAll() {
-		
 		return policeStationRepository.findAll();
 	}
+
+
+
 	
 	
 

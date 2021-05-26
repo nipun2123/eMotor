@@ -14,7 +14,5 @@ public interface PoliceOfficerService {
 	
 	public List<PoliceOfficer> findAll();
 	
-	public boolean sendPasswordAgain(String nic);
-	
 }
 

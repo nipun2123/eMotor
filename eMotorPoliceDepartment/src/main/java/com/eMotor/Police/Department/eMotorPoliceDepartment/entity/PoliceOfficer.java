@@ -27,10 +27,10 @@ public class PoliceOfficer  implements Serializable{
 	@Column(name="idpoliceofficer", nullable = false)
 	private int idPoliceOfficer;
 	
-	@Column(name="nic", nullable = false, length=12,unique=true)
+	@Column(name="nic", nullable = false, length=12)
 	private String nic;
 	
-	@Column(name="officerno",nullable = false, length=20,unique=true)
+	@Column(name="officerno",nullable = false, length=20)
 	private String officerNo;
 	
 	@Column(name="fname",nullable = false, length=45)
@@ -45,18 +45,13 @@ public class PoliceOfficer  implements Serializable{
 	@Column(name="availability",nullable = false)
 	private boolean availability;
 	
-	@javax.persistence.Transient
-	private String availabilityTxt;
-	
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="policestation_idstation", nullable = false)
 	private PoliceStation station;
+	
+	@javax.persistence.Transient
+	private String availabilityTxt;
+
 	
 	@javax.persistence.Transient
 	private String policeStationName;

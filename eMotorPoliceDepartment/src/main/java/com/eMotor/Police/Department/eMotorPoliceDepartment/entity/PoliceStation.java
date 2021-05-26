@@ -27,29 +27,20 @@ public class PoliceStation  implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idPoliceStation;
 	
-//	@NotNull
-	@Column(name="policeStation", nullable = false, length=30,unique=true)
-//	@Size(min = 3, max = 30, message = "Please enter between {min} and {max} characters.")
-	private String policeStation;
 	
-//	@NotNull
+	@Column(name="policeStation", nullable = false, length=40)
+	private String policeStation;
+
 	@Column(name="oic",nullable = false, length=150)
-//	@Size(min = 4, max = 150, message = "Please enter between {min} and {max} characters.")
 	private String oic;
 	
-//	@NotNull
 	@Column(name="oicmobile",nullable = false, length=10)
-//	@Size(min = 10, max = 10,  message = "Please enter {min} numbers." )
 	private String oicMobile;
 	
-//	@NotNull
 	@Column(name="oicoffice",nullable = false, length=10)
-//	@Size(min = 10, max = 10,  message = "Please enter {min} numbers." )
 	private String oicOffice;
 	
-//	@NotNull
 	@Column(name="general",nullable = false, length=10)
-//	@Size(min = 10, max = 10,  message = "Please enter {min} numbers." )
 	private String general;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

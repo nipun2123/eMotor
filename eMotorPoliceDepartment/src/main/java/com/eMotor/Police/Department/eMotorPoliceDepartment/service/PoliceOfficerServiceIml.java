@@ -1,10 +1,20 @@
 package com.eMotor.Police.Department.eMotorPoliceDepartment.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.eMotor.Police.Department.eMotorPoliceDepartment.dao.PoliceOfficerRepository;
 import com.eMotor.Police.Department.eMotorPoliceDepartment.dao.PoliceStationRepository;
@@ -25,7 +35,10 @@ public class PoliceOfficerServiceIml implements PoliceOfficerService {
 	@Autowired
 	private UserAccountRepository userAccountRepository;
 	
-
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Transactional
 	@Override
 	public PoliceOfficer save(PoliceOfficer thePoliceOfficer) {
 		
@@ -50,15 +63,23 @@ public class PoliceOfficerServiceIml implements PoliceOfficerService {
 				
 				UserAccount user = new UserAccount();
 				user.setIdUserAccount(0);
-				user.setUsername(thePoliceOfficer.getNic());
-				user.setPassword(thePoliceOfficer.getOfficerNo());
+				user.setUsername(savedOfficer.getNic());
+				user.setPassword(bCryptPasswordEncoder.encode(savedOfficer.getOfficerNo()));
 				user.setOfficer(savedOfficer);
 				userAccountRepository.save(user);
 				
-				return savedOfficer;
+				String tel = savedOfficer.getTel().substring(1);
 				
+				String msg = "Dear officer, \n Your account username is "+savedOfficer.getNic()+" and password is "+ savedOfficer.getOfficerNo()+". \n You can change it by login into the system.";
 				
-				
+				final String uri = "https://app.notify.lk/api/v1/send?user_id=13387&api_key=QFHLNDXbpawpt5oQys3d&sender_id=NotifyDEMO&to=+94"+tel+"&message="+msg;
+
+				 RestTemplate restTemplate = new RestTemplate();
+				 
+				restTemplate.getForObject(uri, Map.class);
+				  
+				 return savedOfficer;
+				 
 			}else {
 				throw new RuntimeException("The police officer already registred- "+ thePoliceOfficer.getOfficerNo());
 			}
@@ -122,20 +143,7 @@ public class PoliceOfficerServiceIml implements PoliceOfficerService {
 	}
 
 
-	@Override
-	public boolean sendPasswordAgain(String nic) {
-		
-		PoliceOfficer thePoliceOfficer =  policeOfficerRepository.findByNIC(nic).get();
-		UserAccount theUserAccount = userAccountRepository.findByUsername(nic);
-//		
-		System.out.println(thePoliceOfficer.getTel());
-		System.out.println(theUserAccount.getUsername());
-//		
-		System.out.println(theUserAccount.getPassword());
-		
-		
-		return true;
-	}
+	
 
 
 
