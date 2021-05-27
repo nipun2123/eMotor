@@ -1,6 +1,9 @@
 package com.eMotor.Police.Department.eMotorPoliceDepartment.service;
 
 import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +29,7 @@ public class PenaltyServiceIml implements PenaltyService {
 	private PenaltyDateSettingsRepository penaltyDateSettingsRepository;
 	
 	
+	@Transactional
 	@Override
 	public Penalty saveSpot(Penalty thePenalty) {
 		
@@ -63,18 +67,21 @@ public class PenaltyServiceIml implements PenaltyService {
 		}
 	}
 
+	@Transactional
 	@Override
 	public List<Penalty> findAll() {
 		
 		return penaltyRepository.findAll();
 	}
 
+	@Transactional
 	@Override
 	public Penalty findById(int idPenalty) {
 		
 		return penaltyRepository.findById(idPenalty).get();
 	}
 
+	@Transactional
 	@Override
 	public Penalty delete(int idPenalty) {
 
@@ -83,6 +90,7 @@ public class PenaltyServiceIml implements PenaltyService {
 		return penaltyRepository.save(oldPenalty);
 	}
 
+	@Transactional
 	@Override
 	public Penalty saveCourt(Penalty thePenalty) {
 	
@@ -95,6 +103,7 @@ public class PenaltyServiceIml implements PenaltyService {
 			
 	}
 
+	@Transactional
 	@Override
 	public Penalty saveWarn(Penalty thePenalty) {
 	
@@ -104,12 +113,14 @@ public class PenaltyServiceIml implements PenaltyService {
 		return penaltyRepository.save(thePenalty);
 	}
 
+	@Transactional
 	@Override
 	public PenaltyDateSettings savePenaltyDateSettings(PenaltyDateSettings thePenaltyDateSettings) {
 		
 		return penaltyDateSettingsRepository.save(thePenaltyDateSettings);
 	}
 
+	@Transactional
 	@Override
 	public PenaltyDateSettings findSettings() {
 	

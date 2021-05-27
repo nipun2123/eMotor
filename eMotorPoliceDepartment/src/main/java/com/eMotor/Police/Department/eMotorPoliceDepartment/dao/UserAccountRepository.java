@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.eMotor.Police.Department.eMotorPoliceDepartment.entity.UserAccount;
 
 public interface UserAccountRepository extends JpaRepository<UserAccount, Integer> {
-	 
+	
 	 @Query("SELECT u FROM UserAccount u where u.username = :username") 
-	 public UserAccount findByUsername(String username);
+    UserAccount findByUsername(String username);
 }

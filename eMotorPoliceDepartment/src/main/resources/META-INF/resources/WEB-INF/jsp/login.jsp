@@ -1,5 +1,6 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>       
 
 <!DOCTYPE html>
 <html>
@@ -188,22 +189,25 @@ fieldset{
 <div class="middle">
       <div id="login">
 
-        <form:form action="/department/login/check" method="POST" modelAttribute = "departmentAccount">
+         <form action="/login" method="POST" class="form-signin">
 
           <fieldset class="clearfix">
-
-            <p ><span class="fa fa-user"></span><form:input path="username" type="text"  Placeholder="Username" /></p> 
-            <p><span class="fa fa-lock"></span><form:input path="password" type="password"  Placeholder="Password" /></p> 
-            
+			<div class="form-group ${error != null ? 'has-error' : ''}">
+			
+            <p ><span class="fa fa-user"></span><input name="username" type="text"  Placeholder="Username" /></p> <!-- JS because of IE support; better: placeholder="Username" -->
+            <p><span class="fa fa-lock"></span><input name="password" type="password"  Placeholder="Password" /></p> <!-- JS because of IE support; better: placeholder="Password" -->
+            <b style="color: red;">${error}</b>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
              <div>
                                 <span style="width:48%; text-align:left;  display: inline-block;"><a  class="small-text" href="#" data-toggle="modal" data-target="#exampleModal" >Forgot
                                 password?</a></span>
                                 <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" value="Let me in"></span>
                             </div>
-
+			</div>
           </fieldset>
 <div class="clearfix"></div>
-        </form:form>
+        </form>
+
 
         <div class="clearfix"></div>
 

@@ -3,6 +3,8 @@ package com.eMotor.Police.Department.eMotorPoliceDepartment.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class PoliceStationServiceIml implements PoliceStationService {
 	private ProvinceRepository provinceRepository;
 	
 
+	@Transactional
 	@Override
 	public PoliceStation save(PoliceStation thePoliceStation) {
 		

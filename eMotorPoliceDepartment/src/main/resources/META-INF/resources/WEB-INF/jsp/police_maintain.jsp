@@ -1,13 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>       
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
     
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-
+ <meta charset="utf-8">
+	
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -18,7 +18,12 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css"/>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.1/css/select.bootstrap4.min.css"/>
   <link rel="stylesheet" type="text/css" href="https://editor.datatables.net/extensions/Editor/css/editor.bootstrap4.min.css"/>
-        
+  
+  <c:if test="${error != null}">
+  <script>
+  	alert('The process did not success!');
+  </script>
+   </c:if>     
 <title>Police Maintain</title>
 </head>
 <body>
@@ -143,6 +148,8 @@
 		
                                     </tbody>   
                                 </table>
+                                                         
+                            
                             </div>
 
                         </div>
@@ -186,7 +193,7 @@
                                
                                   <div class="form-group">
                                     <form:label path="fName">Officer first name</form:label>
-                                    <form:input path="fName" type="text" class="form-control" id="fName" />
+                                    <form:input path="fName" type="text" class="form-control" id="fName"  />
                                 </div>
                                
                                
@@ -225,35 +232,7 @@
             </div>
             
             
-            <div class="modal fade" id="sendPasswordAgain" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-
-                        
-                    <div class="modal-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-
-                        <form:form action="/department/police/sendpassword" method="GET" modelAttribute = "policeOfficer">
-
-                       
-                            <form:label path="nic" >Are You sure to send password againt?</form:label>
-                            <br/>
-                             <form:input path="nic" id="resendNic" type="text" style="display: none" />
-                             
-                            <div class="d-flex align-items-center justify-content-center">
-                                <button type="submit" class="btn btn-primary" >Yes</button> 
-                                &nbsp;&nbsp;&nbsp;
-                                <button type="button" class="btn btn-secondary"  class="close" data-dismiss="modal" aria-label="Close">No</button> 
-                            </div>
-                        </form:form>
-
-                    </div>
-                    </div>
-                </div>
-
-            </div>
+           
               
              <div class="modal fade" id="stationModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -263,7 +242,9 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <form:form action="/department/police/savestation" method="POST" modelAttribute = "policeStationEntity" >
+                            <form:form action="/department/police/savestation" method="POST" modelAttribute = "policeStationEntity" class="form-signin">
+                            
+                            
 								<div class="form-group">
                                     <form:label path="provinceName">Province</form:label>
                                     <form:select path="provinceName" id= "provinceName" class="form-control browser-default custom-select">
@@ -275,37 +256,48 @@
                                     </form:select>
                                 </div>
 
-								 <div class="form-group">
+ 						<spring:bind path="policeStation">
+								<div class="form-group ${status.error ? 'has-error' : ''}">
                                     <form:label path="policeStation">Police station</form:label>
-                                    <form:input path="policeStation" id="policeStation" type="text"  class="form-control"/>
-                          		
+                                    <form:input path="policeStation" id="policeStation" type="text" autofocus="true" class="form-control" ></form:input>
+                          		 	<form:errors path="policeStation" style="color: red;"></form:errors>
 								</div>
-								
-                                <div class="form-group">
+						</spring:bind>
+						
+						<spring:bind path="oic">
+                                <div class="form-group ${status.error ? 'has-error' : ''}">
                                     <form:label path="oic">Traffic OIC</form:label>
-                                    <form:input path="oic" id="oic" type="text" class="form-control"/>
-                                  
+                                    <form:input path="oic" id="oic" type="text" class="form-control"></form:input>
+                                  	 <form:errors path="oic" style="color: red;"></form:errors>
                                 </div>
-
-                               <div class="form-group">
+						</spring:bind>
+						
+						<spring:bind path="oicOffice">
+                               <div class="form-group ${status.error ? 'has-error' : ''}">
                                     <form:label path="oicOffice">Traffic OIC office</form:label>
-                                    <form:input path="oicOffice" id="oicOffice" type="text" class="form-control"  />
-                                 
+                                    <form:input path="oicOffice" id="oicOffice" type="number" class="form-control" ></form:input>
+                                 	 <form:errors path="oicOffice" style="color: red;"></form:errors>
                                 </div>
-                               
-                               
-                                <div class="form-group">
+                         </spring:bind>
+                         
+                          
+                         <spring:bind path="oicMobile">      
+                        
+                                <div class="form-group ${status.error ? 'has-error' : ''}">
                                     <form:label path="oicMobile">Traffic OIC mobile</form:label>
-                                    <form:input path="oicMobile" id="oicMobile" type="text" class="form-control"  />
-                                 
+                                    <form:input path="oicMobile" id="oicMobile" type="number" class="form-control"></form:input>
+                                 	 <form:errors path="oicMobile" style="color: red;"></form:errors>
                                 </div>
-                               
-                               
-                               <div class="form-group">
+                         </spring:bind>      
+                             
+                         <spring:bind path="general">    
+                               <div class="form-group ${status.error ? 'has-error' : ''}">
                                     <form:label path="general">General number</form:label>
-                                    <form:input path="general" id="general" type="text" class="form-control" />
-                                    
+                                    <form:input path="general" id="general" type="number" class="form-control" ></form:input>
+                                     <form:errors path="general" style="color: red;"></form:errors>
                                 </div>
+                         </spring:bind>
+                         
                                
 								 <form:input path="oldPoliceStation" id="oldPoliceStation" type="text"  style="display: none"/>
 								 <br/>
