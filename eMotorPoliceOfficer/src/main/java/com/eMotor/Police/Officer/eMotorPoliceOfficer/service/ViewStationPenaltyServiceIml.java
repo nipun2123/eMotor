@@ -43,8 +43,7 @@ public class ViewStationPenaltyServiceIml implements ViewStationPenaltyService{
 	private PenaltyDateSettingsRepository penaltyDateSettingsRepository;
 	
 	@Override
-	public List<DriverPenalty> findPenaltiesByStationAll() {
-		int loggedUserId = 2;
+	public List<DriverPenalty> findPenaltiesByStationAll(String loggedUsername) {
 		
 		List<DriverPenalty> newPenaltyList = new ArrayList<DriverPenalty>();
 		
@@ -52,7 +51,7 @@ public class ViewStationPenaltyServiceIml implements ViewStationPenaltyService{
 		
 		for(DriverPenalty theDriverPenalty : driverPenaltyList) {
 			
-			  Useraccount loggedUseraccount = useraccountRepository.findById(loggedUserId).get();
+			  Useraccount loggedUseraccount = useraccountRepository.findByUsername(loggedUsername);
 			  String userPoliceStation =  loggedUseraccount.getOfficer().getStation().getPoliceStation();
 			  
 			  String penaltyPoliceStation =  theDriverPenalty.getUseraccount().getOfficer().getStation().getPoliceStation();
@@ -140,8 +139,7 @@ public class ViewStationPenaltyServiceIml implements ViewStationPenaltyService{
 	
 	
 	@Override
-	public List<DriverPenalty> findPenaltiesByStationMy() {
-		int loggedUserId = 2;
+	public List<DriverPenalty> findPenaltiesByStationMy(String loggedUsername) {
 		
 		List<DriverPenalty> newPenaltyList = new ArrayList<DriverPenalty>();
 		
@@ -149,7 +147,7 @@ public class ViewStationPenaltyServiceIml implements ViewStationPenaltyService{
 		
 		for(DriverPenalty theDriverPenalty : driverPenaltyList) {
 			
-			  Useraccount loggedUseraccount = useraccountRepository.findById(loggedUserId).get();
+			  Useraccount loggedUseraccount = useraccountRepository.findByUsername(loggedUsername);
 			  String userPoliceOfficerNo =  loggedUseraccount.getOfficer().getOfficerNo();
 			  
 			  String penaltyPoliceOfficerNo =  theDriverPenalty.getUseraccount().getOfficer().getOfficerNo();
@@ -236,8 +234,8 @@ public class ViewStationPenaltyServiceIml implements ViewStationPenaltyService{
 	
 
 	@Override
-	public List<DriverPenalty> findPenaltiesByStationPending() {
-		int loggedUserId = 2;
+	public List<DriverPenalty> findPenaltiesByStationPending(String loggedUsername) {
+		
 		
 		List<DriverPenalty> newPenaltyList = new ArrayList<DriverPenalty>();
 		
@@ -305,7 +303,7 @@ public class ViewStationPenaltyServiceIml implements ViewStationPenaltyService{
 		    		}
 		    	
 		    		if(!theDriverPenalty.getStatus().equalsIgnoreCase("Expired")) {
-			  Useraccount loggedUseraccount = useraccountRepository.findById(loggedUserId).get();
+			  Useraccount loggedUseraccount = useraccountRepository.findByUsername(loggedUsername);
 			  String userPoliceStation =  loggedUseraccount.getOfficer().getStation().getPoliceStation();
 			  
 			  String penaltyPoliceStation =  theDriverPenalty.getUseraccount().getOfficer().getStation().getPoliceStation();
@@ -324,9 +322,8 @@ public class ViewStationPenaltyServiceIml implements ViewStationPenaltyService{
 	
 	
 	@Override
-	public List<DriverPenalty> findPenaltiesByStationEnded() {
+	public List<DriverPenalty> findPenaltiesByStationEnded(String loggedUsername) {
 		
-		int loggedUserId = 2;
 		
 		List<DriverPenalty> newPenaltyList = new ArrayList<DriverPenalty>();
 		
@@ -334,7 +331,7 @@ public class ViewStationPenaltyServiceIml implements ViewStationPenaltyService{
 		
 		for(DriverPenalty theDriverPenalty : driverPenaltyList) {
 			
-			  Useraccount loggedUseraccount = useraccountRepository.findById(loggedUserId).get();
+			  Useraccount loggedUseraccount = useraccountRepository.findByUsername(loggedUsername);
 			  String userPoliceStation =  loggedUseraccount.getOfficer().getStation().getPoliceStation();
 			  
 			  String penaltyPoliceStation =  theDriverPenalty.getUseraccount().getOfficer().getStation().getPoliceStation();
@@ -360,8 +357,7 @@ public class ViewStationPenaltyServiceIml implements ViewStationPenaltyService{
 	
 	
 	@Override
-	public List<DriverPenalty> findPenaltiesByStationExpired() {
-int loggedUserId = 2;
+	public List<DriverPenalty> findPenaltiesByStationExpired(String loggedUsername) {
 		
 		List<DriverPenalty> newPenaltyList = new ArrayList<DriverPenalty>();
 		
@@ -427,7 +423,7 @@ int loggedUserId = 2;
 		    		}
 		    		
 		    		if(theDriverPenalty.getStatus().equalsIgnoreCase("Expired")) {
-			  Useraccount loggedUseraccount = useraccountRepository.findById(loggedUserId).get();
+			  Useraccount loggedUseraccount = useraccountRepository.findByUsername(loggedUsername);
 			  String userPoliceStation =  loggedUseraccount.getOfficer().getStation().getPoliceStation();
 			  
 			  String penaltyPoliceStation =  theDriverPenalty.getUseraccount().getOfficer().getStation().getPoliceStation();

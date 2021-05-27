@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,10 +49,11 @@ public class EndPenaltyServiceIml implements EndPenaltyService{
 	@Autowired
 	private PenaltyDateSettingsRepository penaltyDateSettingsRepository;
 	
+	@Transactional
 	@Override
-	public List<DriverPenalty> findPenaltiesByLicenseNo(String licenseNo) {
+	public List<DriverPenalty> findPenaltiesByLicenseNo(String licenseNo, String loggedUsername) {
 		  List<DriverPenalty> newPenaltyList = new ArrayList<DriverPenalty>();
-		int loggedUserId = 2;
+		  
 	  Optional<Driver> theDriver =	driverRepository.findDriving(licenseNo);
 	  
 	  if(theDriver.isPresent()) {
@@ -118,7 +121,7 @@ public class EndPenaltyServiceIml implements EndPenaltyService{
 		    	       
 		    	       
 	    			if(theDriverPenalty.getType().equalsIgnoreCase("court")) {
-	    			  Useraccount loggedUseraccount = useraccountRepository.findById(loggedUserId).get();
+	    			  Useraccount loggedUseraccount = useraccountRepository.findByUsername(loggedUsername);
 	    				
 	    			  String penaltyPoliceStation =  theDriverPenalty.getUseraccount().getOfficer().getStation().getPoliceStation();
 	    			  String userPoliceStation =  loggedUseraccount.getOfficer().getStation().getPoliceStation();
@@ -141,13 +144,12 @@ public class EndPenaltyServiceIml implements EndPenaltyService{
 	}
 	
 
-
+	@Transactional
 	@Override
-	public List<DriverPenalty> findPenaltyByNo(String penaltyNo) {
+	public List<DriverPenalty> findPenaltyByNo(String penaltyNo, String loggedUsername) {
 		
 		List<DriverPenalty> newPenaltyList = new ArrayList<DriverPenalty>();
 		
-		int loggedUserId = 1;
 		DriverPenalty theDriverPenalty =  driverPenaltyRepository.findDriverPenaltyByNo(penaltyNo);
 		
 		if(!theDriverPenalty.getStatus().equalsIgnoreCase("completed")) {
@@ -209,7 +211,7 @@ public class EndPenaltyServiceIml implements EndPenaltyService{
   	       
   	       
   	       if(theDriverPenalty.getType().equalsIgnoreCase("court")) {
-			  Useraccount loggedUseraccount = useraccountRepository.findById(loggedUserId).get();
+			  Useraccount loggedUseraccount = useraccountRepository.findByUsername(loggedUsername);
 				
 			  String penaltyPoliceStation =  theDriverPenalty.getUseraccount().getOfficer().getStation().getPoliceStation();
 			  String userPoliceStation =  loggedUseraccount.getOfficer().getStation().getPoliceStation();
@@ -229,13 +231,13 @@ public class EndPenaltyServiceIml implements EndPenaltyService{
 	}
 
 
-
+	@Transactional
 	@Override
-	public CompletedRecord endWarnPenalty(EndPenaltyBean endPenaltyBean) {
-		int loggedUserId = 1;
+	public CompletedRecord endWarnPenalty(EndPenaltyBean endPenaltyBean, String loggedUsername) {
+		
 		DriverPenalty theDriverPenalty =  driverPenaltyRepository.findDriverPenaltyByNo(endPenaltyBean.getPenaltyNo());
 		
-	    Useraccount theloggedUseraccount = useraccountRepository.findById(loggedUserId).get();
+	    Useraccount theloggedUseraccount = useraccountRepository.findByUsername(loggedUsername);
 	    
 	    CompletedRecord theCompletedRecord = new CompletedRecord();
 	    theCompletedRecord.setResult("Warn completed");
@@ -254,12 +256,13 @@ public class EndPenaltyServiceIml implements EndPenaltyService{
 
 
 
+	@Transactional
 	@Override
-	public CompletedRecord endSpotPenalty(EndPenaltyBean endPenaltyBean) {
-		int loggedUserId = 1;
+	public CompletedRecord endSpotPenalty(EndPenaltyBean endPenaltyBean, String loggedUsername) {
+		
 		DriverPenalty theDriverPenalty =  driverPenaltyRepository.findDriverPenaltyByNo(endPenaltyBean.getPenaltyNo());
 		
-	    Useraccount theloggedUseraccount = useraccountRepository.findById(loggedUserId).get();
+	    Useraccount theloggedUseraccount = useraccountRepository.findByUsername(loggedUsername);
 	    
 	    CompletedRecord theCompletedRecord = new CompletedRecord();
 	    theCompletedRecord.setResult("Spot fine completed by paying rs."+endPenaltyBean.getPaidAmount());
@@ -277,13 +280,13 @@ public class EndPenaltyServiceIml implements EndPenaltyService{
 	}
 
 
-
+	@Transactional
 	@Override
-	public CompletedRecord endCourtPenalty(EndPenaltyBean endPenaltyBean) {
-		int loggedUserId = 1;
+	public CompletedRecord endCourtPenalty(EndPenaltyBean endPenaltyBean, String loggedUsername) {
+		
 		DriverPenalty theDriverPenalty =  driverPenaltyRepository.findDriverPenaltyByNo(endPenaltyBean.getPenaltyNo());
 		
-	    Useraccount theloggedUseraccount = useraccountRepository.findById(loggedUserId).get();
+	    Useraccount theloggedUseraccount = useraccountRepository.findByUsername(loggedUsername);
 	    
 	    CompletedRecord theCompletedRecord = new CompletedRecord();
 	    

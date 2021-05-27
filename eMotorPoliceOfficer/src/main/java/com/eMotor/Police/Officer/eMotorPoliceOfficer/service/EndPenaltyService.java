@@ -9,13 +9,13 @@ import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.DriverPenalty;
 
 public interface EndPenaltyService {
 
-	public  List<DriverPenalty> findPenaltiesByLicenseNo(String licenseNo);
+	public  List<DriverPenalty> findPenaltiesByLicenseNo(String licenseNo, String loggedUsername);
 	
-	public  List<DriverPenalty> findPenaltyByNo(String penaltyNo);
+	public  List<DriverPenalty> findPenaltyByNo(String penaltyNo, String loggedUsername);
 	
-	public  CompletedRecord endWarnPenalty(EndPenaltyBean endPenaltyBean);
+	public  CompletedRecord endWarnPenalty(EndPenaltyBean endPenaltyBean, String loggedUsername);
 	
-	public  CompletedRecord endSpotPenalty(EndPenaltyBean endPenaltyBean);
+	public  CompletedRecord endSpotPenalty(EndPenaltyBean endPenaltyBean, String loggedUsername);
 	
-	public  CompletedRecord endCourtPenalty(EndPenaltyBean endPenaltyBean);
+	public  CompletedRecord endCourtPenalty(EndPenaltyBean endPenaltyBean, String loggedUsername);
 }

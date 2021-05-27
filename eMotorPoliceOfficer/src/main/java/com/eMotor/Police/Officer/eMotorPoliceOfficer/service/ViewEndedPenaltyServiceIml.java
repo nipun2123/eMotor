@@ -40,9 +40,8 @@ public class ViewEndedPenaltyServiceIml implements ViewEndedPenaltyService{
 
 
 	@Override
-	public List<DriverPenalty> findEndedPenaltiesByStationAll() {
+	public List<DriverPenalty> findEndedPenaltiesByStationAll(String loggedUsername) {
 		
-		int loggedUserId = 1;
 		
 		 List<DriverPenalty> newPenaltyList = new ArrayList<DriverPenalty>();
 		 
@@ -55,7 +54,7 @@ public class ViewEndedPenaltyServiceIml implements ViewEndedPenaltyService{
 	    		
 	    		if(theDriverPenalty.getStatus().equalsIgnoreCase("completed") ) {
 	    			
-	    			  Useraccount loggedUseraccount = useraccountRepository.findById(loggedUserId).get();
+	    			  Useraccount loggedUseraccount = useraccountRepository.findByUsername(loggedUsername);
 	    			  String userPoliceStation =  loggedUseraccount.getOfficer().getStation().getPoliceStation();
 	    			  
 	    			  CompletedRecord theCompletedRecord =  completedRecordRepository.findCompletedRecord(theDriverPenalty).get();
@@ -81,11 +80,10 @@ public class ViewEndedPenaltyServiceIml implements ViewEndedPenaltyService{
 
 
 	@Override
-	public List<DriverPenalty> findEndedPenaltiesByStationToday() {
+	public List<DriverPenalty> findEndedPenaltiesByStationToday(String loggedUsername) {
 		List<DriverPenalty> newPenaltyList = new ArrayList<DriverPenalty>();
 		
-		int loggedUserId = 1;
-		Useraccount loggedUseraccount = useraccountRepository.findById(loggedUserId).get();
+		Useraccount loggedUseraccount = useraccountRepository.findByUsername(loggedUsername);
 		  String userPoliceStation =  loggedUseraccount.getOfficer().getStation().getPoliceStation();
 		  
 		  
@@ -109,11 +107,10 @@ public class ViewEndedPenaltyServiceIml implements ViewEndedPenaltyService{
 
 
 	@Override
-	public List<DriverPenalty> findEndedPenaltiesByStationBetween(Date from, Date to) {
+	public List<DriverPenalty> findEndedPenaltiesByStationBetween(Date from, Date to, String loggedUsername) {
 List<DriverPenalty> newPenaltyList = new ArrayList<DriverPenalty>();
 		
-		int loggedUserId = 1;
-		Useraccount loggedUseraccount = useraccountRepository.findById(loggedUserId).get();
+		Useraccount loggedUseraccount = useraccountRepository.findByUsername(loggedUsername);
 		  String userPoliceStation =  loggedUseraccount.getOfficer().getStation().getPoliceStation();
 		  
 		  

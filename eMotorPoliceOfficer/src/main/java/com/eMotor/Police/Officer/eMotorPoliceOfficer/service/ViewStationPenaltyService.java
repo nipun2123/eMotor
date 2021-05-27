@@ -10,13 +10,13 @@ import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.DriverPenalty;
 
 public interface ViewStationPenaltyService {
 
-	public  List<DriverPenalty> findPenaltiesByStationAll();
+	public  List<DriverPenalty> findPenaltiesByStationAll(String loggedUsername);
 	
-	public  List<DriverPenalty> findPenaltiesByStationMy();
+	public  List<DriverPenalty> findPenaltiesByStationMy(String loggedUsername);
 	
-	public  List<DriverPenalty> findPenaltiesByStationPending();
+	public  List<DriverPenalty> findPenaltiesByStationPending(String loggedUsername);
 	
-	public  List<DriverPenalty> findPenaltiesByStationEnded();
+	public  List<DriverPenalty> findPenaltiesByStationEnded(String loggedUsername);
 	
-	public  List<DriverPenalty> findPenaltiesByStationExpired();
+	public  List<DriverPenalty> findPenaltiesByStationExpired(String loggedUsername);
 }

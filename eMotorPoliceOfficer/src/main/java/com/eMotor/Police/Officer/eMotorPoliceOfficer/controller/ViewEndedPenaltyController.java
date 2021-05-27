@@ -1,6 +1,7 @@
 package com.eMotor.Police.Officer.eMotorPoliceOfficer.controller;
 
 
+import java.security.Principal;
 import java.sql.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +40,10 @@ public class ViewEndedPenaltyController {
 	
 
 	@RequestMapping("/all/en")
-	public String showViewEndedPenaltyAllEnglish(Model theModel) {
+	public String showViewEndedPenaltyAllEnglish(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationAll();
+		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationAll(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -63,10 +64,10 @@ public class ViewEndedPenaltyController {
 	
 	
 	@RequestMapping("/all/sn")
-	public String showViewEndedPenaltyAllSinhala(Model theModel) {
+	public String showViewEndedPenaltyAllSinhala(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationAll();
+		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationAll(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -87,10 +88,10 @@ public class ViewEndedPenaltyController {
 	
 	
 	@RequestMapping("/all/tm")
-	public String showViewEndedPenaltyAllTamil(Model theModel) {
+	public String showViewEndedPenaltyAllTamil(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationAll();
+		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationAll(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -113,10 +114,10 @@ public class ViewEndedPenaltyController {
 	
 	
 	@RequestMapping("/today/en")
-	public String showViewEndedPenaltyTodayEnglish(Model theModel) {
+	public String showViewEndedPenaltyTodayEnglish(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationToday();
+		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationToday(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -136,10 +137,10 @@ public class ViewEndedPenaltyController {
 	
 	
 	@RequestMapping("/today/sn")
-	public String showViewEndedPenaltyTodaySinhala(Model theModel) {
+	public String showViewEndedPenaltyTodaySinhala(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationToday();
+		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationToday(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -159,10 +160,10 @@ public class ViewEndedPenaltyController {
 	
 	
 	@RequestMapping("/today/tm")
-	public String showViewEndedPenaltyTodayTamil(Model theModel) {
+	public String showViewEndedPenaltyTodayTamil(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationToday();
+		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationToday(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -181,10 +182,10 @@ public class ViewEndedPenaltyController {
 	}
 	
 	@RequestMapping("/between/en")
-	public String showViewEndedPenaltyBetweenEnglish(@RequestParam("from")Date from,@RequestParam("to")Date to, Model theModel) {
+	public String showViewEndedPenaltyBetweenEnglish(@RequestParam("from")Date from,@RequestParam("to")Date to, Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationBetween(from, to);
+		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationBetween(from, to,principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -197,15 +198,17 @@ public class ViewEndedPenaltyController {
 		theModel.addAttribute("en","checked");
 		theModel.addAttribute("ln","en");
 		
+		theModel.addAttribute("from", from);
+		theModel.addAttribute("to", to);
 		
 		return "view_ended_penalty";
 	}
 	
 	@RequestMapping("/between/sn")
-	public String showViewEndedPenaltyBetweenSinhala(@RequestParam("from")Date from,@RequestParam("to")Date to, Model theModel) {
+	public String showViewEndedPenaltyBetweenSinhala(@RequestParam("from")Date from,@RequestParam("to")Date to, Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationBetween(from, to);
+		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationBetween(from, to,principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -218,15 +221,17 @@ public class ViewEndedPenaltyController {
 		theModel.addAttribute("sn","checked");
 		theModel.addAttribute("ln","sn");
 		
+		theModel.addAttribute("from", from);
+		theModel.addAttribute("to", to);
 		
 		return "view_ended_penalty";
 	}
 	
 	@RequestMapping("/between/tm")
-	public String showViewEndedPenaltyBetweenTamil(@RequestParam("from")Date from,@RequestParam("to")Date to, Model theModel) {
+	public String showViewEndedPenaltyBetweenTamil(@RequestParam("from")Date from,@RequestParam("to")Date to, Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationBetween(from, to);
+		List<DriverPenalty> driverPenaltyList = viewEndedPenaltyService.findEndedPenaltiesByStationBetween(from, to,principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -239,7 +244,9 @@ public class ViewEndedPenaltyController {
 		theModel.addAttribute("tm","checked");
 		theModel.addAttribute("ln","tm");
 		
-		
+		theModel.addAttribute("from", from);
+		theModel.addAttribute("to", to);
+	
 		return "view_ended_penalty";
 	}
 	

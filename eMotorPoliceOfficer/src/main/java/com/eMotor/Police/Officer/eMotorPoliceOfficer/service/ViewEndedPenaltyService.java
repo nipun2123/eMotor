@@ -10,9 +10,9 @@ import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.DriverPenalty;
 
 public interface ViewEndedPenaltyService {
 
-	public  List<DriverPenalty> findEndedPenaltiesByStationAll();
+	public  List<DriverPenalty> findEndedPenaltiesByStationAll(String loggedUsername);
 	
-	public  List<DriverPenalty> findEndedPenaltiesByStationToday();
+	public  List<DriverPenalty> findEndedPenaltiesByStationToday(String loggedUsername);
 	
-	public  List<DriverPenalty> findEndedPenaltiesByStationBetween(Date from, Date to);
+	public  List<DriverPenalty> findEndedPenaltiesByStationBetween(Date from, Date to,String loggedUsername);
 }

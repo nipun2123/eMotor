@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.beans.OfferPenaltyBean;
@@ -40,6 +43,7 @@ public class OfferPenaltyServiceIml implements OfferPenaltyService{
 	private PenaltyDateSettingsRepository penaltyDateSettingsRepository;
 	
 	
+	@Transactional
 	@Override
 	public DriverPenalty offerPenalty(OfferPenaltyBean theOfferPenaltyBean) {
 		
@@ -47,8 +51,9 @@ public class OfferPenaltyServiceIml implements OfferPenaltyService{
 			
 		Penalty thePenalty =  penaltyRepository.findById(theOfferPenaltyBean.getPenaltyId()).get();
 		
-		Useraccount theUseraccount =  useraccountRepository.findById(2).get();
-		
+		System.out.println("bbbbbb"+theOfferPenaltyBean.getUsername());
+		Useraccount theUseraccount =  useraccountRepository.findByUsername(theOfferPenaltyBean.getUsername());
+		System.out.println("cccc"+theUseraccount.getIdUserAccount());
 		DriverPenalty theDriverPenalty = new DriverPenalty();
 		
 		
@@ -60,6 +65,8 @@ public class OfferPenaltyServiceIml implements OfferPenaltyService{
 		theDriverPenalty.setCourt(theOfferPenaltyBean.getCourt());
 		theDriverPenalty.setCourtDate(theOfferPenaltyBean.getCourtDate());
 		theDriverPenalty.setType(theOfferPenaltyBean.getType());
+		theDriverPenalty.setPenalty(thePenalty);
+		theDriverPenalty.setUseraccount(theUseraccount);
 		
 		if(theOfferPenaltyBean.getType().equalsIgnoreCase("court")){
 			theDriverPenalty.setStatus("Court pending");
@@ -78,15 +85,17 @@ public class OfferPenaltyServiceIml implements OfferPenaltyService{
 			theDriverPenalty.setPenaltyTo(new Date(cal.getTimeInMillis()));
 		}
 		
-		theDriverPenalty.setPenalty(thePenalty);
-		theDriverPenalty.setDriver(foundDriver.get());
-		theDriverPenalty.setUseraccount(theUseraccount);
+		
+	
+		
 		
 	
 		
 		
 		
 		if(foundDriver.isPresent()) {
+			
+			theDriverPenalty.setDriver(foundDriver.get());
 			
 			int penaltyCount = driverPenaltyRepository.findDriverPenaltycountByDriver(foundDriver.get())+1;
 			

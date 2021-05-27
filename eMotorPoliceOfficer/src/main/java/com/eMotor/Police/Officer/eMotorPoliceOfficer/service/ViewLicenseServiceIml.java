@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,12 +19,14 @@ import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.CompletedRecordReposito
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.DriverPenaltyRepository;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.DriverRepository;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.PenaltyDateSettingsRepository;
+import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.PoliceOfficerRepository;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.SuspendedLicenseRepository;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.CompletedRecord;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.Driver;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.DriverPenalty;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.DrivingLicense;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.PenaltyDateSettings;
+import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.PoliceOfficer;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.SuspendedLicense;
 
 @Service
@@ -43,7 +47,11 @@ public class ViewLicenseServiceIml implements ViewLicenseService{
 	@Autowired
 	private PenaltyDateSettingsRepository penaltyDateSettingsRepository;
 	
+	@Autowired
+	private PoliceOfficerRepository policeOfficerRepository;
 	
+	
+	@Transactional
 	@Override
 	public Map<String, Object> searchDrivingLicense(String licenseNo, String nic) {
 		
@@ -159,6 +167,7 @@ public class ViewLicenseServiceIml implements ViewLicenseService{
 	}
 
 
+	@Transactional
 	@Override
 	public DriverPenalty findPenaltyByNo(String penaltyNo) {
 		
@@ -224,16 +233,27 @@ public class ViewLicenseServiceIml implements ViewLicenseService{
 		
 		 DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
 	       theDriverPenalty.setFormatedPenaltyFrom(theDriverPenalty.getPenaltyFrom().format(format));
-		
+		System.out.println(theDriverPenalty.getVehicleNo());
 	  	 Optional<CompletedRecord> theCompletedrecord = completedRecordRepository.findCompletedRecord(theDriverPenalty);
-	 
+	  	System.out.println(theCompletedrecord.get().getCompletedDate());
 	 		if(theCompletedrecord.isPresent()) {
-	 			theCompletedrecord.get().setDriverPenalty(null);
+	 			System.out.println("aaa");
+//	 			theCompletedrecord.get().setDriverPenalty(null);
+	 			System.out.println("bbb");
 	 			theCompletedrecord.get().setFormatedCompletedDate(theCompletedrecord.get().getCompletedDate().format(format));
+	 			System.out.println("ccc");
 	 			theDriverPenalty.setCompletedRecord(theCompletedrecord.get());
+	 			System.out.println("ddd");
 	 		}
 	 		
 	 		return theDriverPenalty;
+	}
+
+
+	@Override
+	public PoliceOfficer findByUsername(String username) {
+		
+		return policeOfficerRepository.findByUsername(username);
 	}
 	
 	

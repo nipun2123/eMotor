@@ -52,7 +52,7 @@ public class DriverPenalty  implements Serializable{
 	@Column(name="type", nullable = false, length=5)
 	private String type;
 	
-	@Column(name="status", nullable = false, length=10)
+	@Column(name="status", nullable = false, length=20)
 	private String status;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
