@@ -1,25 +1,15 @@
 package com.eMotor.Police.Officer.eMotorPoliceOfficer.controller;
 
 
-import java.sql.Date;
+import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.eMotor.Police.Officer.eMotorPoliceOfficer.beans.EndPenaltyBean;
-import com.eMotor.Police.Officer.eMotorPoliceOfficer.beans.OfferPenaltyBean;
-import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.CompletedRecord;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.DriverPenalty;
-import com.eMotor.Police.Officer.eMotorPoliceOfficer.service.EndPenaltyService;
-import com.eMotor.Police.Officer.eMotorPoliceOfficer.service.OfferPenaltyService;
-import com.eMotor.Police.Officer.eMotorPoliceOfficer.service.ViewEndedPenaltyService;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.service.ViewLicenseService;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.service.ViewStationPenaltyService;
 
@@ -40,10 +30,10 @@ public class ViewStationPenaltyController {
 	
 
 	@RequestMapping("/all/en")
-	public String showViewStationPenaltyAllEnglish(Model theModel) {
+	public String showViewStationPenaltyAllEnglish(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationAll();
+		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationAll(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -63,10 +53,10 @@ public class ViewStationPenaltyController {
 	}
 	
 	@RequestMapping("/all/sn")
-	public String showViewStationPenaltyAllSinhala(Model theModel) {
+	public String showViewStationPenaltyAllSinhala(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationAll();
+		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationAll(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -86,10 +76,10 @@ public class ViewStationPenaltyController {
 	}
 	
 	@RequestMapping("/all/tm")
-	public String showViewStationPenaltyAllTamil(Model theModel) {
+	public String showViewStationPenaltyAllTamil(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationAll();
+		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationAll(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -122,10 +112,10 @@ public class ViewStationPenaltyController {
 	
 	
 	@RequestMapping("/pending/en")
-	public String showViewStationPenaltyPendingEnglish(Model theModel) {
+	public String showViewStationPenaltyPendingEnglish(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationPending();
+		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationPending(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -145,10 +135,10 @@ public class ViewStationPenaltyController {
 	}
 	
 	@RequestMapping("/pending/sn")
-	public String showViewStationPenaltyPendingSinhala(Model theModel) {
+	public String showViewStationPenaltyPendingSinhala(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationPending();
+		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationPending(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -168,10 +158,10 @@ public class ViewStationPenaltyController {
 	}
 	
 	@RequestMapping("/pending/tm")
-	public String showViewStationPenaltyPendingTamil(Model theModel) {
+	public String showViewStationPenaltyPendingTamil(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationPending();
+		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationPending(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -201,10 +191,10 @@ public class ViewStationPenaltyController {
 	
 	
 	@RequestMapping("/ended/en")
-	public String showViewStationPenaltyEndedEnglish(Model theModel) {
+	public String showViewStationPenaltyEndedEnglish(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationEnded();
+		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationEnded(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -225,10 +215,10 @@ public class ViewStationPenaltyController {
 	
 	
 	@RequestMapping("/ended/sn")
-	public String showViewStationPenaltyEndedSinhala(Model theModel) {
+	public String showViewStationPenaltyEndedSinhala(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationEnded();
+		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationEnded(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -248,10 +238,10 @@ public class ViewStationPenaltyController {
 	}
 	
 	@RequestMapping("/ended/tm")
-	public String showViewStationPenaltyEndedTamil(Model theModel) {
+	public String showViewStationPenaltyEndedTamil(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationEnded();
+		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationEnded(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -284,10 +274,10 @@ public class ViewStationPenaltyController {
 	
 	
 	@RequestMapping("/expired/en")
-	public String showViewStationPenaltyExpiredEnglish(Model theModel) {
+	public String showViewStationPenaltyExpiredEnglish(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationExpired();
+		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationExpired(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -308,10 +298,10 @@ public class ViewStationPenaltyController {
 	
 	
 	@RequestMapping("/expired/sn")
-	public String showViewStationPenaltyExpiredSinhala(Model theModel) {
+	public String showViewStationPenaltyExpiredSinhala(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationExpired();
+		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationExpired(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -332,10 +322,10 @@ public class ViewStationPenaltyController {
 	
 	
 	@RequestMapping("/expired/tm")
-	public String showViewStationPenaltyExpiredTamil(Model theModel) {
+	public String showViewStationPenaltyExpiredTamil(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationExpired();
+		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationExpired(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -361,10 +351,10 @@ public class ViewStationPenaltyController {
 	
 	
 	@RequestMapping("/my/en")
-	public String showViewStationPenaltyMyEnglish(Model theModel) {
+	public String showViewStationPenaltyMyEnglish(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationMy();
+		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationMy(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -385,10 +375,10 @@ public class ViewStationPenaltyController {
 	
 	
 	@RequestMapping("/my/sn")
-	public String showViewStationPenaltyMySinhala(Model theModel) {
+	public String showViewStationPenaltyMySinhala(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationMy();
+		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationMy(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -408,10 +398,10 @@ public class ViewStationPenaltyController {
 	}
 	
 	@RequestMapping("/my/tm")
-	public String showViewStationPenaltyMyTamil(Model theModel) {
+	public String showViewStationPenaltyMyTamil(Model theModel, Principal principal) {
 		
 		
-		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationMy();
+		List<DriverPenalty> driverPenaltyList = viewStationPenaltyService.findPenaltiesByStationMy(principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 

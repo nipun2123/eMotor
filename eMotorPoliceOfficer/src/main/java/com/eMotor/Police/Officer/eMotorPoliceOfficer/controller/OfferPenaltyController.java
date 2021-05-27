@@ -1,5 +1,6 @@
 package com.eMotor.Police.Officer.eMotorPoliceOfficer.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,10 @@ public class OfferPenaltyController {
 	private OfferPenaltyService offerPenaltyService;
 	
 
-	@PostMapping("/offer/penalty")
-	public DriverPenalty offerPenalty(@RequestBody OfferPenaltyBean theOfferPenaltyBean) {
-		return offerPenaltyService.offerPenalty(theOfferPenaltyBean);
-	}
+//	@PostMapping("/offer/penalty")
+//	public DriverPenalty offerPenalty(@RequestBody OfferPenaltyBean theOfferPenaltyBean) {
+//		return offerPenaltyService.offerPenalty(theOfferPenaltyBean);
+//	}
 	
 	@GetMapping("/penalty/search")
 	public List<Penalty> findPenaltiesByType(@RequestParam("type")String type) {

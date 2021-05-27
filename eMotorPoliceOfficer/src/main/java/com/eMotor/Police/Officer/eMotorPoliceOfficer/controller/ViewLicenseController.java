@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.beans.OfferPenaltyBean;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.DriverPenalty;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.Penalty;
+import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.PoliceOfficer;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.service.OfferPenaltyService;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.service.SecurityService;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.service.ViewLicenseService;
@@ -38,11 +39,8 @@ public class ViewLicenseController {
 	@Autowired
 	private OfferPenaltyService offerPenaltyService;
 	
-	@Autowired
-	private SecurityService securityService;
 	
-	
-	@GetMapping({"/", "/search/en"})
+	@GetMapping("/search/en")
 	public String findDrivingLicenseEnglish(@RequestParam(value = "licenseNo",defaultValue="0")String licenseNo, @RequestParam(value = "nic", defaultValue="0")String nic, Model theModel) {
 		
 	
@@ -144,7 +142,8 @@ public class ViewLicenseController {
 	@RequestMapping
 	public String showViewLicenses(HttpSession session, Principal principal, Model theModel) {
 		
-		session.setAttribute("name", principal.getName()+"Divya Nimsara");
+		PoliceOfficer loggedOfficer = viewLicenseService.findByUsername(principal.getName());
+		session.setAttribute("name",loggedOfficer.getlName());
 		OfferPenaltyBean offerPenaltyBean = new OfferPenaltyBean();
 		
 		theModel.addAttribute("offerPenaltyBean", offerPenaltyBean);
@@ -220,7 +219,9 @@ public class ViewLicenseController {
 
 	
 	@PostMapping("/search/offer/penalty")
-	public String offerPenalty(@ModelAttribute("offerPenaltyBean") OfferPenaltyBean theOfferPenaltyBean) {
+	public String offerPenalty(@ModelAttribute("offerPenaltyBean") OfferPenaltyBean theOfferPenaltyBean, Principal principal) {
+		theOfferPenaltyBean.setUsername(principal.getName());
+		System.out.println("aaaa"+principal.getName());
 		offerPenaltyService.offerPenalty(theOfferPenaltyBean);
 		
 		return "redirect:/view/license/search/en";

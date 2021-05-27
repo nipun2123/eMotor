@@ -133,12 +133,12 @@ input:checked + .slider:before {
 			<form action="/view/endedpenalty/between/${ln}" method="GET">
 			<div class="form-check-inline">
 				<label class="form-label" for="form1">From</label> &nbsp; 
-				<input id="search-focus" name="from" type="date" id="fromDate" class="form-control" />
+				<input id="search-focus" name="from" type="date" value="${from}" id="fromDate" class="form-control" required />
 			
 			&nbsp;&nbsp; 
 				<label class="form-label" for="form1">To</label> 
 				&nbsp; 
-				<input id="search-focus" name="to" type=date id="toDate" class="form-control" />
+				<input id="search-focus" name="to" type="date" value="${to}" id="toDate" class="form-control" required />
 			
 			&nbsp; &nbsp;
 			<button type="submit" class="btn btn-primary"  >

@@ -23,6 +23,14 @@ public class OfferPenaltyBean implements Serializable{
 	private String type;
 	private String status;
 	private int penaltyId;
+	private String username;
+	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	public String getLicenseNo() {
 		return licenseNo;
 	}

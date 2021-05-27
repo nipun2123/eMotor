@@ -1,6 +1,7 @@
 package com.eMotor.Police.Officer.eMotorPoliceOfficer.controller;
 
 
+import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,14 +34,14 @@ public class EndPenaltyController {
 	ViewLicenseService viewLicenseService;
 	
 	@GetMapping("/search/license/en")
-	public String findPenaltyByLicenseEnglish(@RequestParam(value = "licenseNo",defaultValue="0")String licenseNo, Model theModel) {
+	public String findPenaltyByLicenseEnglish(@RequestParam(value = "licenseNo",defaultValue="0")String licenseNo, Model theModel, Principal principal) {
 		
 	
 		if(licenseNo.equals("0")  ) {
 			return "redirect:/end/penalty";
 		}
 		
-		List<DriverPenalty> driverPenaltyList = (List<DriverPenalty>) endPenaltyService.findPenaltiesByLicenseNo(licenseNo);
+		List<DriverPenalty> driverPenaltyList = (List<DriverPenalty>) endPenaltyService.findPenaltiesByLicenseNo(licenseNo,principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -61,14 +62,14 @@ public class EndPenaltyController {
 	}
 
 	@GetMapping("/search/license/sn")
-	public String findPenaltyByLicenseSinhala(@RequestParam(value = "licenseNo",defaultValue="0")String licenseNo, Model theModel) {
+	public String findPenaltyByLicenseSinhala(@RequestParam(value = "licenseNo",defaultValue="0")String licenseNo, Model theModel, Principal principal) {
 		
 	
 		if(licenseNo.equals("0")  ) {
 			return "redirect:/end/penalty";
 		}
 		
-		List<DriverPenalty> driverPenaltyList = (List<DriverPenalty>) endPenaltyService.findPenaltiesByLicenseNo(licenseNo);
+		List<DriverPenalty> driverPenaltyList = (List<DriverPenalty>) endPenaltyService.findPenaltiesByLicenseNo(licenseNo,principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -91,14 +92,14 @@ public class EndPenaltyController {
 
 	
 	@GetMapping("/search/license/tm")
-	public String findPenaltyByLicenseTamil(@RequestParam(value = "licenseNo",defaultValue="0")String licenseNo, Model theModel) {
+	public String findPenaltyByLicenseTamil(@RequestParam(value = "licenseNo",defaultValue="0")String licenseNo, Model theModel, Principal principal) {
 		
 	
 		if(licenseNo.equals("0")  ) {
 			return "redirect:/end/penalty";
 		}
 		
-		List<DriverPenalty> driverPenaltyList = (List<DriverPenalty>) endPenaltyService.findPenaltiesByLicenseNo(licenseNo);
+		List<DriverPenalty> driverPenaltyList = (List<DriverPenalty>) endPenaltyService.findPenaltiesByLicenseNo(licenseNo,principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -121,14 +122,14 @@ public class EndPenaltyController {
 	
 	
 	@GetMapping("/search/penalty/en")
-	public String findPenaltyByPenaltyEnglish(@RequestParam(value = "penaltyNo",defaultValue="0")String penaltyNo, Model theModel) {
+	public String findPenaltyByPenaltyEnglish(@RequestParam(value = "penaltyNo",defaultValue="0")String penaltyNo, Model theModel, Principal principal) {
 		
 	
 		if(penaltyNo.equals("0")  ) {
 			return "redirect:/end/penalty";
 		}
 		
-		List<DriverPenalty> driverPenaltyList = (List<DriverPenalty>) endPenaltyService.findPenaltyByNo(penaltyNo);
+		List<DriverPenalty> driverPenaltyList = (List<DriverPenalty>) endPenaltyService.findPenaltyByNo(penaltyNo,principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -150,14 +151,14 @@ public class EndPenaltyController {
 	
 	
 	@GetMapping("/search/penalty/sn")
-	public String findPenaltyByPenaltySinhala(@RequestParam(value = "penaltyNo",defaultValue="0")String penaltyNo, Model theModel) {
+	public String findPenaltyByPenaltySinhala(@RequestParam(value = "penaltyNo",defaultValue="0")String penaltyNo, Model theModel, Principal principal) {
 		
 	
 		if(penaltyNo.equals("0")  ) {
 			return "redirect:/end/penalty";
 		}
 		
-		List<DriverPenalty> driverPenaltyList = (List<DriverPenalty>) endPenaltyService.findPenaltyByNo(penaltyNo);
+		List<DriverPenalty> driverPenaltyList = (List<DriverPenalty>) endPenaltyService.findPenaltyByNo(penaltyNo,principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -178,14 +179,14 @@ public class EndPenaltyController {
 	}
 	
 	@GetMapping("/search/penalty/tm")
-	public String findPenaltyByPenaltyTamil(@RequestParam(value = "penaltyNo",defaultValue="0")String penaltyNo, Model theModel) {
+	public String findPenaltyByPenaltyTamil(@RequestParam(value = "penaltyNo",defaultValue="0")String penaltyNo, Model theModel, Principal principal) {
 		
 	
 		if(penaltyNo.equals("0")  ) {
 			return "redirect:/end/penalty";
 		}
 		
-		List<DriverPenalty> driverPenaltyList = (List<DriverPenalty>) endPenaltyService.findPenaltyByNo(penaltyNo);
+		List<DriverPenalty> driverPenaltyList = (List<DriverPenalty>) endPenaltyService.findPenaltyByNo(penaltyNo,principal.getName());
 		
 		 for(DriverPenalty driverPenalty : driverPenaltyList) {
 			 
@@ -223,10 +224,10 @@ public class EndPenaltyController {
 	
 	
 	@PostMapping("/warn")
-	public String endWarnPenalty(@ModelAttribute("endPenaltyBean") EndPenaltyBean theEndPenaltyBean, Model theModel) {
+	public String endWarnPenalty(@ModelAttribute("endPenaltyBean") EndPenaltyBean theEndPenaltyBean, Model theModel, Principal principal) {
 		
 	
-	   CompletedRecord	completedRecord = endPenaltyService.endWarnPenalty(theEndPenaltyBean);
+	   CompletedRecord	completedRecord = endPenaltyService.endWarnPenalty(theEndPenaltyBean,principal.getName());
 		
 		EndPenaltyBean endPenaltyBean = new EndPenaltyBean();
 		
@@ -239,10 +240,10 @@ public class EndPenaltyController {
 	}
 	
 	@PostMapping("/spot")
-	public String endSpotPenalty(@ModelAttribute("endPenaltyBean") EndPenaltyBean theEndPenaltyBean, Model theModel) {
+	public String endSpotPenalty(@ModelAttribute("endPenaltyBean") EndPenaltyBean theEndPenaltyBean, Model theModel, Principal principal) {
 		
 	
-	   CompletedRecord	completedRecord = endPenaltyService.endSpotPenalty(theEndPenaltyBean);
+	   CompletedRecord	completedRecord = endPenaltyService.endSpotPenalty(theEndPenaltyBean,principal.getName());
 		
 		EndPenaltyBean endPenaltyBean = new EndPenaltyBean();
 		
@@ -255,10 +256,10 @@ public class EndPenaltyController {
 	}
 	
 	@PostMapping("/court")
-	public String endCourtPenalty(@ModelAttribute("endPenaltyBean") EndPenaltyBean theEndPenaltyBean, Model theModel) {
+	public String endCourtPenalty(@ModelAttribute("endPenaltyBean") EndPenaltyBean theEndPenaltyBean, Model theModel, Principal principal) {
 		
 	
-	   CompletedRecord	completedRecord = endPenaltyService.endCourtPenalty(theEndPenaltyBean);
+	   CompletedRecord	completedRecord = endPenaltyService.endCourtPenalty(theEndPenaltyBean,principal.getName());
 		
 		EndPenaltyBean endPenaltyBean = new EndPenaltyBean();
 		

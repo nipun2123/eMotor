@@ -193,10 +193,10 @@ fieldset{
 
           <fieldset class="clearfix">
 			<div class="form-group ${error != null ? 'has-error' : ''}">
-			 <span>${message}</span>
+			
             <p ><span class="fa fa-user"></span><input name="username" type="text"  Placeholder="Username" /></p> <!-- JS because of IE support; better: placeholder="Username" -->
             <p><span class="fa fa-lock"></span><input name="password" type="password"  Placeholder="Password" /></p> <!-- JS because of IE support; better: placeholder="Password" -->
-            <span>${error}</span>
+            <b style="color: red;">${error}</b>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
              <div>
                                 <span style="width:48%; text-align:left;  display: inline-block;"><a  class="small-text" href="#" data-toggle="modal" data-target="#exampleModal" >Forgot
