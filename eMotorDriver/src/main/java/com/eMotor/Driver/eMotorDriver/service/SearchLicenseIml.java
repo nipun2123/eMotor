@@ -220,7 +220,7 @@ public class SearchLicenseIml implements SearchLicenseService{
 	  	 Optional<CompletedRecord> theCompletedrecord = completedRecordRepository.findCompletedRecord(theDriverPenalty);
 	 
 	 		if(theCompletedrecord.isPresent()) {
-	 			theCompletedrecord.get().setDriverPenalty(null);
+//	 			theCompletedrecord.get().setDriverPenalty(null);
 	 			theCompletedrecord.get().setFormatedCompletedDate(theCompletedrecord.get().getCompletedDate().format(format));
 	 			theDriverPenalty.setCompletedRecord(theCompletedrecord.get());
 	 		}
