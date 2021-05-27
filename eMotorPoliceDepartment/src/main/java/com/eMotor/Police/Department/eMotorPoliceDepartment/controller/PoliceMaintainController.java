@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +20,10 @@ import com.eMotor.Police.Department.eMotorPoliceDepartment.entity.Province;
 import com.eMotor.Police.Department.eMotorPoliceDepartment.service.PoliceOfficerService;
 import com.eMotor.Police.Department.eMotorPoliceDepartment.service.PoliceStationService;
 import com.eMotor.Police.Department.eMotorPoliceDepartment.service.ProvinceService;
+import com.eMotor.Police.Department.eMotorPoliceDepartment.validation.PoliceStationValidator;
 
 @Controller
-@RequestMapping("/department")
+@RequestMapping({"/","/department"})
 public class PoliceMaintainController {
 
 	@Autowired
@@ -33,9 +35,11 @@ public class PoliceMaintainController {
 	@Autowired
 	private PoliceOfficerService policeOfficerService;
 
+	@Autowired
+	private PoliceStationValidator policeStationValidator;
 
 	
-	 @RequestMapping("/police/maintain")
+	 @RequestMapping({"/","/police/maintain"})
 	 public String showPoliceMaintain(Model theModel) {
 		 
 	 List<Province> theProvinceService = provinceService.findAll();
@@ -59,9 +63,29 @@ public class PoliceMaintainController {
 	 
 	
 	@PostMapping("/police/savestation")
-	public String saveStation(@ModelAttribute("policeStationEntity") PoliceStation thePoliceStation){
+	public String saveStation(@ModelAttribute("policeStationEntity") PoliceStation thePoliceStation, BindingResult bindingResult, Model theModel){
 		
-		
+		policeStationValidator.validate(thePoliceStation, bindingResult);
+
+	        if (bindingResult.hasErrors()) {
+	        	theModel.addAttribute("error","error");
+	        	 List<Province> theProvinceService = provinceService.findAll();
+	     		theModel.addAttribute("provinces",theProvinceService);
+	     		
+	     	List<PoliceStation>	thePoliceStationAll = policeStationService.findAll();
+	     	theModel.addAttribute("staions",thePoliceStationAll);
+	     	
+	     	
+	     	List<PoliceOfficer>	thePoliceOfficer = policeOfficerService.findAll();
+	     	theModel.addAttribute("officers",thePoliceOfficer);
+	     	
+	     	PoliceOfficer policeOfficer = new PoliceOfficer();
+	     	theModel.addAttribute("policeOfficer",policeOfficer);
+	     	
+	     	 return "police_maintain";
+	     	 
+	        }
+	        
 		PoliceStation newPoliceStation =  policeStationService.save(thePoliceStation);
 		
 		if(newPoliceStation == null) {
