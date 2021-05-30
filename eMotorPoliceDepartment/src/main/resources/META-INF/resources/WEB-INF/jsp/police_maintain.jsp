@@ -180,32 +180,57 @@
                                     </form:select>
                                 </div>
 
+						<spring:bind path="nic">
+							<div class="form-group ${status.error ? 'has-error' : ''}">
                                 <div class="form-group">
                                     <form:label path="nic">Officer NIC</form:label>
                                     <form:input path="nic" type="text" class="form-control" id="nic"/>
+                                    <form:errors path="nic" style="color: red;"></form:errors>
                                 </div>
-
+							</div>
+						</spring:bind>
+						
+						
+						<spring:bind path="officerNo">
+							<div class="form-group ${status.error ? 'has-error' : ''}">	
                                <div class="form-group">
                                     <form:label path="officerNo">Officer no</form:label>
                                     <form:input path="officerNo" type="text" class="form-control" id="officerNo" />
+                                    <form:errors path="officerNo" style="color: red;"></form:errors>
                                 </div>
+                             </div>
+                        </spring:bind>
+                        
                                
-                               
+                        <spring:bind path="fName">
+							<div class="form-group ${status.error ? 'has-error' : ''}">       
                                   <div class="form-group">
                                     <form:label path="fName">Officer first name</form:label>
                                     <form:input path="fName" type="text" class="form-control" id="fName"  />
+                                    <form:errors path="fName" style="color: red;"></form:errors>
                                 </div>
+                         </div>
+                        </spring:bind>       
                                
-                               
+                         <spring:bind path="lName">
+							<div class="form-group ${status.error ? 'has-error' : ''}">      
                               <div class="form-group">
                                     <form:label path="lName">Officer last name</form:label>
                                     <form:input path="lName" type="text" class="form-control" id="lName" />
+                                    <form:errors path="lName" style="color: red;"></form:errors>
                                 </div>
-                                
+                           </div>
+                          </spring:bind>
+                          
+                          <spring:bind path="tel">
+							<div class="form-group ${status.error ? 'has-error' : ''}">      
                                <div class="form-group">
                                     <form:label path="tel">Mobile number</form:label>
                                     <form:input path="tel" type="text" class="form-control" id="tel"/>
+                                    <form:errors path="tel" style="color: red;"></form:errors>
                                 </div>
+                           </div>
+                         </spring:bind>  
                                
                       
                         <div class="form-group" id="availabilityGroup">

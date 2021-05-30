@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>       
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>    
     
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,11 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css"/>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.1/css/select.bootstrap4.min.css"/>
   <link rel="stylesheet" type="text/css" href="https://editor.datatables.net/extensions/Editor/css/editor.bootstrap4.min.css"/>
-        
+          <c:if test="${error != null}">
+  <script>
+  	alert('The process did not success!');
+  </script>
+   </c:if>   
 <title>Penalty maintain</title>
 </head>
 <body>
@@ -221,26 +225,46 @@
 								
                                 	
 
+							<spring:bind path="penaltyEnglish">
+							<div class="form-group ${status.error ? 'has-error' : ''}">
                                 <div class="form-group">
                                     <form:label path="penaltyEnglish">Offence in English</form:label>
                                     <form:input path="penaltyEnglish" type="text" class="form-control" id="spotPenaltyEnglish"/>
+                                    <form:errors path="penaltyEnglish" style="color: red;"></form:errors>
                                 </div>
-                                
+                              </div>
+                              </spring:bind>
+                              
+                              <spring:bind path="penaltySinhala">
+							<div class="form-group ${status.error ? 'has-error' : ''}">  
                                 <div class="form-group">
                                     <form:label path="penaltySinhala">Offence in Sinhala</form:label>
                                     <form:input path="penaltySinhala" type="text" class="form-control" id="spotPenaltySinhala"/>
+                                    <form:errors path="penaltySinhala" style="color: red;"></form:errors>
                                 </div>
+                                </div>
+                                </spring:bind>
                                 
+                                
+                                <spring:bind path="penaltyTamil">
+							<div class="form-group ${status.error ? 'has-error' : ''}">
                                 <div class="form-group">
                                     <form:label path="penaltyTamil">Offence in Tamil</form:label>
                                     <form:input path="penaltyTamil" type="text" class="form-control" id="spotPenaltyTamil" />
+                                    <form:errors path="penaltyTamil" style="color: red;"></form:errors>
                                 </div>
+                                </div>
+                                </spring:bind>
 
+							<spring:bind path="amount">
+							<div class="form-group ${status.error ? 'has-error' : ''}">
                                <div class="form-group">
                                     <form:label path="amount">Fine Amount</form:label>
                                     <form:input path="amount" type="text" class="form-control" id="amount" />
+                                    <form:errors path="amount" style="color: red;"></form:errors>
                                 </div>
-                                
+                                </div>
+                                </spring:bind>
                                 <form:input path="idPenalty" id="idSpotPenalty" type="text"  style="display: none"/>
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -295,22 +319,38 @@
                              <form:form action="/department/penalty/court/save" method="POST" modelAttribute = "penalty">
 								
                                 	
-
+						<spring:bind path="penaltyEnglish">
+							<div class="form-group ${status.error ? 'has-error' : ''}">
                                 <div class="form-group">
                                     <form:label path="penaltyEnglish">Offence in English</form:label>
                                     <form:input path="penaltyEnglish" type="text" class="form-control" id="courtPenaltyEnglish"/>
+                                    <form:errors path="penaltyEnglish" style="color: red;"></form:errors>
                                 </div>
-                                
+                              </div>
+                             </spring:bind>   
+                             
+                             
+                             <spring:bind path="penaltySinhala">
+							<div class="form-group ${status.error ? 'has-error' : ''}">
                                 <div class="form-group">
                                     <form:label path="penaltySinhala">Offence in Sinhala</form:label>
                                     <form:input path="penaltySinhala" type="text" class="form-control" id="courtPenaltySinhala"/>
+                                    <form:errors path="penaltySinhala" style="color: red;"></form:errors>
                                 </div>
-                                
+                                </div>
+                               </spring:bind>
+                               
+                               
+                          <spring:bind path="penaltyTamil">
+							<div class="form-group ${status.error ? 'has-error' : ''}"> 
                                 <div class="form-group">
                                     <form:label path="penaltyTamil">Offence in Tamil</form:label>
                                     <form:input path="penaltyTamil" type="text" class="form-control" id="courtPenaltyTamil" />
+                                    <form:errors path="penaltyTamil" style="color: red;"></form:errors>
                                 </div>
-
+								</div>
+							</spring:bind>		
+				
                                    <form:input path="idPenalty" id="idCourtPenalty" type="text"  style="display: none"/>
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -335,21 +375,37 @@
                             <form:form action="/department/penalty/warn/save" method="POST" modelAttribute = "penalty">
 								
                                 	
-
+							<spring:bind path="penaltyEnglish">
+							<div class="form-group ${status.error ? 'has-error' : ''}">
                                 <div class="form-group">
                                     <form:label path="penaltyEnglish">Offence in English</form:label>
                                     <form:input path="penaltyEnglish" type="text" class="form-control" id="warnPenaltyEnglish"/>
+                                    <form:errors path="penaltyEnglish" style="color: red;"></form:errors>
                                 </div>
+                                </div>
+                               </spring:bind> 
                                 
+                                
+                              <spring:bind path="penaltySinhala">
+							<div class="form-group ${status.error ? 'has-error' : ''}">  
                                 <div class="form-group">
                                     <form:label path="penaltySinhala">Offence in Sinhala</form:label>
                                     <form:input path="penaltySinhala" type="text" class="form-control" id="warnPenaltySinhala"/>
+                                    <form:errors path="penaltySinhala" style="color: red;"></form:errors>
                                 </div>
-                                
+                                </div>
+                              </spring:bind>  
+                              
+                              
+                              <spring:bind path="penaltyTamil">
+							<div class="form-group ${status.error ? 'has-error' : ''}">  
                                 <div class="form-group">
                                     <form:label path="penaltyTamil">Offence in Tamil</form:label>
                                     <form:input path="penaltyTamil" type="text" class="form-control" id="warnPenaltyTamil" />
+                                    <form:errors path="penaltyTamil" style="color: red;"></form:errors>
                                 </div>
+                                </div>
+                               </spring:bind> 
 
                                    <form:input path="idPenalty" id="idWarnPenalty" type="text"  style="display: none"/>
 

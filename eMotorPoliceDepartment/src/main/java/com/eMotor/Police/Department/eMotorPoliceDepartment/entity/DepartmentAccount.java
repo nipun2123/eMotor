@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="departmentaccount")
@@ -29,7 +30,29 @@ public class DepartmentAccount implements Serializable{
 	
 	@Column(name="password",nullable = false, length=150)
 	private String password;
+	
+	@Transient
+	private String oldPassword;
+	
+	@Transient
+	private String confirmPassword;
 
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
 
 	public DepartmentAccount(int idDepartmentAccount, String username, String password) {
 		this.idDepartmentAccount = idDepartmentAccount;

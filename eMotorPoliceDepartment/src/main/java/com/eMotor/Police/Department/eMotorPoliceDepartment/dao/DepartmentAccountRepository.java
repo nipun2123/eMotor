@@ -6,4 +6,5 @@ import com.eMotor.Police.Department.eMotorPoliceDepartment.entity.DepartmentAcco
 public interface DepartmentAccountRepository extends JpaRepository<DepartmentAccount, Integer> {
 	
 	DepartmentAccount findByUsername(String username);
+	
 }

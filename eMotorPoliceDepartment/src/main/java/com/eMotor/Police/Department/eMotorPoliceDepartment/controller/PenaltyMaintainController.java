@@ -5,15 +5,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.eMotor.Police.Department.eMotorPoliceDepartment.entity.DepartmentAccount;
 import com.eMotor.Police.Department.eMotorPoliceDepartment.entity.Penalty;
 import com.eMotor.Police.Department.eMotorPoliceDepartment.entity.PenaltyDateSettings;
 import com.eMotor.Police.Department.eMotorPoliceDepartment.service.PenaltyService;
+import com.eMotor.Police.Department.eMotorPoliceDepartment.validation.CourtWarnPenaltyValidator;
+import com.eMotor.Police.Department.eMotorPoliceDepartment.validation.SpotPenaltyValidator;
 
 
 @Controller
@@ -22,6 +26,12 @@ public class PenaltyMaintainController {
 
 	@Autowired
 	private PenaltyService penaltyService;
+	
+	@Autowired
+	private SpotPenaltyValidator spotPenaltyValidator;
+	
+	@Autowired
+	private CourtWarnPenaltyValidator courtWarnPenaltyValidator;
 	
 	
 	
@@ -45,7 +55,9 @@ public class PenaltyMaintainController {
 	theModel.addAttribute("penaltySettings",thePenaltyDateSettingsRepository);
 	
 	theModel.addAttribute("en","checked");
-	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+savedPenaltySettings);
+	
+
+	
 	 return "penalty_maintain";
 	 }
 	 
@@ -74,6 +86,9 @@ public class PenaltyMaintainController {
 	
 	theModel.addAttribute("sn","checked");
 	
+
+	
+	
 	 return "penalty_maintain";
 	 }
 	 
@@ -100,6 +115,8 @@ public class PenaltyMaintainController {
 	
 	theModel.addAttribute("tm","checked");
 	
+
+	
 	 return "penalty_maintain";
 	 }
 	 
@@ -110,8 +127,32 @@ public class PenaltyMaintainController {
 	 
 	 
 	 @PostMapping("/penalty/spot/save")
-		public String saveSpotPenalty(@ModelAttribute("penalty") Penalty thePenalty){
+		public String saveSpotPenalty(@ModelAttribute("penalty") Penalty thePenalty, BindingResult bindingResult, Model theModel){
 			
+		 spotPenaltyValidator.validate(thePenalty, bindingResult);
+
+	        if (bindingResult.hasErrors()) {
+	        	theModel.addAttribute("error","error");
+	       	 List<Penalty> thePenalties = penaltyService.findAll();
+	    	 
+	    	 for(int i = 0; i<thePenalties.size(); i++) {
+	    		 thePenalties.get(i).setPenaltyCommon(thePenalties.get(i).getPenaltyEnglish());
+	    	 }
+	    		theModel.addAttribute("penalties",thePenalties);
+	    	
+	    	
+	    	PenaltyDateSettings savedPenaltySettings = penaltyService.findSettings();
+	    	theModel.addAttribute("savedPenaltySettings",savedPenaltySettings);
+	    	
+	    	PenaltyDateSettings thePenaltyDateSettingsRepository = new PenaltyDateSettings();
+	    	theModel.addAttribute("penaltySettings",thePenaltyDateSettingsRepository);
+	    	
+	
+	    	
+	    	
+	    	theModel.addAttribute("en","checked");
+	    	 return "penalty_maintain";
+	        }
 			
 			Penalty newPenalty =  penaltyService.saveSpot(thePenalty);
 			
@@ -125,8 +166,30 @@ public class PenaltyMaintainController {
 	 
 	 
 	 @PostMapping("/penalty/court/save")
-		public String saveCourtPenalty(@ModelAttribute("penalty") Penalty thePenalty){
+		public String saveCourtPenalty(@ModelAttribute("penalty") Penalty thePenalty, BindingResult bindingResult, Model theModel){
 			
+		 courtWarnPenaltyValidator.validate(thePenalty, bindingResult);
+
+	        if (bindingResult.hasErrors()) {
+	        	theModel.addAttribute("error","error");
+	       	 List<Penalty> thePenalties = penaltyService.findAll();
+	    	 
+	    	 for(int i = 0; i<thePenalties.size(); i++) {
+	    		 thePenalties.get(i).setPenaltyCommon(thePenalties.get(i).getPenaltyEnglish());
+	    	 }
+	    		theModel.addAttribute("penalties",thePenalties);
+	    	
+	    	
+	    	PenaltyDateSettings savedPenaltySettings = penaltyService.findSettings();
+	    	theModel.addAttribute("savedPenaltySettings",savedPenaltySettings);
+	    	
+	    	PenaltyDateSettings thePenaltyDateSettingsRepository = new PenaltyDateSettings();
+	    	theModel.addAttribute("penaltySettings",thePenaltyDateSettingsRepository);
+	    	
+	 
+	    	theModel.addAttribute("en","checked");
+	    	 return "penalty_maintain";
+	        }
 			
 			Penalty newPenalty =  penaltyService.saveCourt(thePenalty);
 			
@@ -140,8 +203,32 @@ public class PenaltyMaintainController {
 	 
 	 
 	 @PostMapping("/penalty/warn/save")
-		public String saveWarnPenalty(@ModelAttribute("penalty") Penalty thePenalty){
+		public String saveWarnPenalty(@ModelAttribute("penalty") Penalty thePenalty, BindingResult bindingResult, Model theModel){
 			
+		 
+		 courtWarnPenaltyValidator.validate(thePenalty, bindingResult);
+
+	        if (bindingResult.hasErrors()) {
+	        	theModel.addAttribute("error","error");
+	       	 List<Penalty> thePenalties = penaltyService.findAll();
+	    	 
+	    	 for(int i = 0; i<thePenalties.size(); i++) {
+	    		 thePenalties.get(i).setPenaltyCommon(thePenalties.get(i).getPenaltyEnglish());
+	    	 }
+	    		theModel.addAttribute("penalties",thePenalties);
+	    	
+	    	
+	    	PenaltyDateSettings savedPenaltySettings = penaltyService.findSettings();
+	    	theModel.addAttribute("savedPenaltySettings",savedPenaltySettings);
+	    	
+	    	PenaltyDateSettings thePenaltyDateSettingsRepository = new PenaltyDateSettings();
+	    	theModel.addAttribute("penaltySettings",thePenaltyDateSettingsRepository);
+	    	
+	    	
+	    	
+	    	theModel.addAttribute("en","checked");
+	    	 return "penalty_maintain";
+	        }
 			
 			Penalty newPenalty =  penaltyService.saveWarn(thePenalty);
 			
