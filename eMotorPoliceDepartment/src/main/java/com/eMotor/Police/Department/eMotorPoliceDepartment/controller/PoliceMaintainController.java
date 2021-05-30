@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.eMotor.Police.Department.eMotorPoliceDepartment.entity.DepartmentAccount;
 import com.eMotor.Police.Department.eMotorPoliceDepartment.entity.PoliceOfficer;
 import com.eMotor.Police.Department.eMotorPoliceDepartment.entity.PoliceStation;
 import com.eMotor.Police.Department.eMotorPoliceDepartment.entity.Province;
 import com.eMotor.Police.Department.eMotorPoliceDepartment.service.PoliceOfficerService;
 import com.eMotor.Police.Department.eMotorPoliceDepartment.service.PoliceStationService;
 import com.eMotor.Police.Department.eMotorPoliceDepartment.service.ProvinceService;
+import com.eMotor.Police.Department.eMotorPoliceDepartment.validation.PoliceOfficerValidator;
 import com.eMotor.Police.Department.eMotorPoliceDepartment.validation.PoliceStationValidator;
 
 @Controller
@@ -37,6 +39,9 @@ public class PoliceMaintainController {
 
 	@Autowired
 	private PoliceStationValidator policeStationValidator;
+	
+	@Autowired
+	private PoliceOfficerValidator policeOfficerValidator;
 
 	
 	 @RequestMapping({"/","/police/maintain"})
@@ -56,6 +61,7 @@ public class PoliceMaintainController {
 	
 	PoliceOfficer policeOfficer = new PoliceOfficer();
 	theModel.addAttribute("policeOfficer",policeOfficer);
+	
 	
 	 return "police_maintain";
 	 }
@@ -82,6 +88,8 @@ public class PoliceMaintainController {
 	     	PoliceOfficer policeOfficer = new PoliceOfficer();
 	     	theModel.addAttribute("policeOfficer",policeOfficer);
 	     	
+	     	
+	     	
 	     	 return "police_maintain";
 	     	 
 	        }
@@ -97,9 +105,30 @@ public class PoliceMaintainController {
 	}
 	
 	@PostMapping("/police/saveofficer")
-	public String saveOfficer(@ModelAttribute("policeOfficer") PoliceOfficer thePoliceOfficer){
+	public String saveOfficer(@ModelAttribute("policeOfficer") PoliceOfficer thePoliceOfficer, BindingResult bindingResult, Model theModel){
 		
-		
+		policeOfficerValidator.validate(thePoliceOfficer, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+        	theModel.addAttribute("error","error");
+       	 List<Province> theProvinceService = provinceService.findAll();
+    		theModel.addAttribute("provinces",theProvinceService);
+    		
+    	List<PoliceStation>	thePoliceStationAll = policeStationService.findAll();
+    	theModel.addAttribute("staions",thePoliceStationAll);
+    	
+    	
+    	List<PoliceOfficer>	thePoliceOfficerAll = policeOfficerService.findAll();
+    	theModel.addAttribute("officers",thePoliceOfficerAll);
+    	
+    	PoliceStation policeStation = new PoliceStation();
+    	theModel.addAttribute("policeStationEntity",policeStation);
+    	
+  
+    	
+    	 return "police_maintain";
+        }
+        
 		PoliceOfficer newPoliceOfficer =  policeOfficerService.save(thePoliceOfficer);
 		
 		if(newPoliceOfficer == null) {

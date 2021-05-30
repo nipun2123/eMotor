@@ -1,3 +1,7 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>   
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -34,7 +38,7 @@
                 <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" style="text-decoration: none" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
                 <a href="/department/police/maintain" class="w3-bar-item w3-button w3-padding mynavitem ${param.police}"  style="text-decoration: none" id="item"><i class="fa fa-users fa-fw"></i>  &nbsp;   Police</a>
                 <a href="/department/penalty/maintain/en" class="w3-bar-item w3-button w3-padding mynavitem ${param.offence}"  style="text-decoration: none" ><i class="fa fa fa-gavel fa-fw"></i>   &nbsp;  Offence</a>
-                <a href="#" data-toggle="modal" data-target="#changePasswordModel" class="w3-bar-item w3-button w3-padding mynavitem" onclick="changeColor()" style="text-decoration: none" ><i class="fa fa-cog fa-fw"></i> &nbsp;  Change Password</a>
+                <a href="/department/change/password" class="w3-bar-item w3-button w3-padding mynavitem ${param.change}" style="text-decoration: none" ><i class="fa fa-cog fa-fw"></i> &nbsp;  Change Password</a>
                 <a  class="w3-bar-item w3-button w3-padding" style="text-decoration: none" onclick="document.forms['logoutForm'].submit()" ><i class="fa fa-power-off fa-fw"></i>   &nbsp;  Logout</a>
             </div>
         </nav>
@@ -48,38 +52,6 @@
 
 
 
-<div class="modal fade" id="changePasswordModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Change password</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="../ChangePasswordServlet" id="changePasswordForm" method="POST">
-                            <div class="form-group">
-                                <label for="oldPassword">Old password</label>
-                                <input type="password" class="form-control" id="oldPassword"  required placeholder="Old Password">
-                                <label id="resultOldPassword" style="color: red"></label>
-                            </div>
-                            <div class="form-group">
-                                <label for="newPassword">New password</label>
-                                <input type="password" class="form-control" id="newpassword" name="newpassword" title="Must contain minimum 8 characters with at least one letter and one number"  required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" placeholder="New Password">
-                            </div>
-                            <div class="form-group">
-                                <label for="confirmpassword">Confirm password</label>
-                                <input type="password" class="form-control" id="confirmpassword" required placeholder="Confirm Password">
-                                <span id='resultpassword'></span>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary" >Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 </body>
 
 <script>
@@ -102,9 +74,6 @@ function w3_close() {
     overlayBg.style.display = "none";
 }
 
-$('#changePasswordModel').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus');
-});
 
 
 </script>
