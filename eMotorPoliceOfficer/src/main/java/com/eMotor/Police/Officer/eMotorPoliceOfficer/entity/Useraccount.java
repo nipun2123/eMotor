@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="useraccount")
@@ -32,17 +33,56 @@ public class Useraccount  implements Serializable{
 	@Column(name="password",nullable = false, length=150)
 	private String password;
 	
-
+	
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="policeofficer_idofficer", nullable = false)
 	private PoliceOfficer officer;
 
+	@Transient
+	private String oldPassword;
 	
+	@Transient
+	private String confirmPassword;
+	
+	@Transient
+	private String tel;
+
+
+
+
 	public Useraccount() {
 	
 	}
 	
+	public String getTel() {
+		return tel;
+	}
+
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
 
 	public Useraccount(int idUserAccount, PoliceOfficer officer) {
 		

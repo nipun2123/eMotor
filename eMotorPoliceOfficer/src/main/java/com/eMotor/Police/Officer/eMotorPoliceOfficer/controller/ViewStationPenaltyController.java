@@ -18,13 +18,9 @@ import com.eMotor.Police.Officer.eMotorPoliceOfficer.service.ViewStationPenaltyS
 @RequestMapping("/view/station/penalty")
 public class ViewStationPenaltyController {
 
-//	
-//	@Autowired
-//	EndPenaltyService endPenaltyService;
-//
 	@Autowired
 	ViewLicenseService viewLicenseService;
-//	
+	
 	@Autowired
 	ViewStationPenaltyService viewStationPenaltyService;
 	

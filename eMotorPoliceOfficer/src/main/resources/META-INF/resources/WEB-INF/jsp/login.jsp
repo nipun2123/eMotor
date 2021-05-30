@@ -1,5 +1,7 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -13,7 +15,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	
+	  <c:if test="${forgoterror != null}">
+  <script>
+  	alert('The process did not success!');
+  </script>
+   </c:if>   
 	<style>
 		div.main{
     background: #0264d6; /* Old browsers */
@@ -189,7 +195,7 @@ fieldset{
 <div class="middle">
       <div id="login">
 
-        <form action="/login" method="POST" class="form-signin">
+        <form action="/login" method="POST" autocomplete="off">
 
           <fieldset class="clearfix">
 			<div class="form-group ${error != null ? 'has-error' : ''}">
@@ -221,6 +227,8 @@ fieldset{
 
 </div>
 
+     
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -237,23 +245,35 @@ fieldset{
                                     <div class="text-center">
                                         <h3><i class="fa fa-lock fa-4x"></i></h3>
                                         <h2 class="text-center">Forgot Password?</h2>
-                                        <p>Enter your mobile number below. We'll send you an sms with instructions to choose a new password </p>
+                                        <p>Enter your username and mobile number below. We'll send you an sms with a new password </p>
                                         <div class="panel-body">
 
-                                            <form id="register-form" role="form" autocomplete="off" class="form" method="post">
-
-                                                <div class="form-group">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
-                                                        <input id=tel name="tel" placeholder="Mobile number" class="form-control"  type="tel">
-                                                    </div>
+                                            <form:form action="/forgot/password" autocomplete="off" method="POST" modelAttribute="forgotAccount">
+												
+											<spring:bind path="username">
+												<div class="form-group ${status.error ? 'has-error' : ''}">  
+                                                    
+                                                        <form:input path="username" placeholder="Username" class="form-control"  type="text"/>
+                                                   
+                                                        <form:errors path="username" style="color: red;"></form:errors>
+                                                
                                                 </div>
-                                                <div class="form-group">
-                                                    <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
+                                              </spring:bind>  
+                                                
+                                                
+                                            <spring:bind path="tel">
+												<div class="form-group ${status.error ? 'has-error' : ''}">  
+                                                  
+                                                        <form:input path="tel" placeholder="Mobile number" class="form-control"  type="tel"/>
+                                                        
+                                                        <form:errors path="tel" style="color: red;"></form:errors>
+                                                
                                                 </div>
-
-                                                <input type="hidden" class="hide" name="token" id="token" value=""> 
-                                            </form>
+                                             </spring:bind>
+                                                
+                                                    <button type="submit" class="btn btn-lg btn-primary btn-block" >Reset Password</button>
+                                          
+                                            </form:form>
 
                                         </div>
                                     </div>
@@ -261,7 +281,7 @@ fieldset{
                             </div>
                         </div>
                     </div>
-                    <!--</div>-->
+                    
                 </div>
 
             </div>
