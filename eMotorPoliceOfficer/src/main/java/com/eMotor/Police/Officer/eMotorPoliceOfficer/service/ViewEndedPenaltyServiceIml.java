@@ -1,28 +1,16 @@
 package com.eMotor.Police.Officer.eMotorPoliceOfficer.service;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.eMotor.Police.Officer.eMotorPoliceOfficer.beans.EndPenaltyBean;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.CompletedRecordRepository;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.DriverPenaltyRepository;
-import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.DriverRepository;
-import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.SuspendedLicenseRepository;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.dao.UseraccountRepository;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.CompletedRecord;
-import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.Driver;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.DriverPenalty;
-import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.SuspendedLicense;
 import com.eMotor.Police.Officer.eMotorPoliceOfficer.entity.Useraccount;
 
 @Service

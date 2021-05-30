@@ -45,7 +45,7 @@
                   <a href="/end/penalty" class="w3-bar-item w3-button w3-padding mynavitem ${param.end_penalty}"  style="text-decoration: none" ><i class="fa fa-window-close-o fa-fw"></i>  &nbsp;   End Penalty</a>
                   <a href="/view/endedpenalty/all/en" class="w3-bar-item w3-button w3-padding mynavitem ${param.view_ended_penalty}"  style="text-decoration: none" ><i class="fa fa-eye fa-fw"></i>   &nbsp;  View ended penalty </a>
                    <a href="/view/station/penalty/all/en" class="w3-bar-item w3-button w3-padding mynavitem ${param.view_station_penalty}"  style="text-decoration: none" ><i class="fa fa-gavel fa-fw"></i>    &nbsp; View station penalty</a>
-                   <a href="#" data-toggle="modal" data-target="#changePasswordModel" class="w3-bar-item w3-button w3-padding mynavitem" onclick="changeColor()" style="text-decoration: none" ><i class="fa fa-cog fa-fw"></i>   &nbsp; Change Password</a>
+                   <a href="/change/password" class="w3-bar-item w3-button w3-padding mynavitem ${param.change}" style="text-decoration: none" ><i class="fa fa-cog fa-fw"></i>   &nbsp; Change Password</a>
                 <a  class="w3-bar-item w3-button w3-padding" style="text-decoration: none" onclick="document.forms['logoutForm'].submit()" ><i class="fa fa-power-off fa-fw"></i>  &nbsp;   Logout</a>
             </div>
         </nav>
@@ -55,38 +55,7 @@
 
         <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
         
-        <div class="modal fade" id="changePasswordModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Change password</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="../ChangePasswordServlet" id="changePasswordForm" method="POST">
-                            <div class="form-group">
-                                <label for="oldPassword">Old password</label>
-                                <input type="password" class="form-control" id="oldPassword"  required placeholder="Old Password">
-                                <label id="resultOldPassword" style="color: red"></label>
-                            </div>
-                            <div class="form-group">
-                                <label for="newPassword">New password</label>
-                                <input type="password" class="form-control" id="newpassword" name="newpassword" title="Must contain minimum 8 characters with at least one letter and one number"  required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" placeholder="New Password">
-                            </div>
-                            <div class="form-group">
-                                <label for="confirmpassword">Confirm password</label>
-                                <input type="password" class="form-control" id="confirmpassword" required placeholder="Confirm Password">
-                                <span id='resultpassword'></span>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary" >Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+     
 </body>
 
 <script>
@@ -108,10 +77,6 @@ function w3_close() {
     mySidebar.style.display = "none";
     overlayBg.style.display = "none";
 }
-
-$('#changePasswordModel').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus');
-});
 
 
 </script>
